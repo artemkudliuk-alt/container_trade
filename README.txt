@@ -69,6 +69,8 @@ Container Trade — вёрстка (HTML / SCSS / jQuery 4 + Swiper 11) под O
   npm run html      — только HTML (python _src/build.py)
   npm run watch     — пересборка при изменении scss
   HTML правится в _src/tpl, не в готовых *.html — иначе затрётся при сборке.
+  Готовые HTML/CSS лежат в репозитории, поэтому хостинг сборку не запускает:
+  vercel.json отключает установку и сборку на Vercel, GitHub Pages — .nojekyll.
 
 ШРИФТ
   Geometria (400, 500, 700, 800) — fonts/Geometria-*.woff2 / .woff,

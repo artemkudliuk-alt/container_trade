@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo 'static markup: no dependencies needed'",
+  "buildCommand": "echo 'static markup: HTML/CSS are prebuilt (run npm run build locally)'",
+  "outputDirectory": "."
+}

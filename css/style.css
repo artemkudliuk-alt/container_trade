@@ -1213,6 +1213,7 @@ a.link-arrow:hover .ico, a:hover .link-arrow .ico {
   justify-content: space-between;
   gap: 40px;
   height: 800px;
+  height: clamp(560px, 100svh, 800px);
   background: #1b2536 url("../img/hero-poster.webp") center/cover no-repeat;
   color: #fff;
 }
@@ -1262,7 +1263,7 @@ a.link-arrow:hover .ico, a:hover .link-arrow .ico {
 @media (max-width: 1279px) {
   .hero {
     height: auto;
-    min-height: 720px;
+    min-height: clamp(560px, 100svh, 720px);
   }
   .hero__content {
     flex-direction: column;
@@ -1276,7 +1277,7 @@ a.link-arrow:hover .ico, a:hover .link-arrow .ico {
 }
 @media (max-width: 1023px) {
   .hero {
-    height: 640px;
+    height: clamp(520px, 100svh, 640px);
     min-height: 0;
     gap: 20px;
   }

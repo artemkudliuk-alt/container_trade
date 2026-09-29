@@ -11,6 +11,8 @@
   justify-content: space-between;
   gap: 40px;
   height: 800px;
+  // на ноутбуках окно ниже 800 — первый экран не выше окна, иначе текст внизу уходит за край
+  height: clamp(560px, 100svh, 800px);
   // первый кадр видео — фон, пока видео грузится (и если оно отключено)
   background: #1b2536 url("../img/hero-poster.webp") center / cover no-repeat;
   color: #fff;
@@ -33,12 +35,12 @@
 
   @include md {
     height: auto;
-    min-height: 720px;
+    min-height: clamp(560px, 100svh, 720px);
     &__content { flex-direction: column; gap: 24px; }
   }
   @media (max-width: 599px) { background-image: url("../img/hero-poster-m.webp"); }
   @include mob {
-    height: 640px;
+    height: clamp(520px, 100svh, 640px);
     min-height: 0;
     gap: 20px;
     &__content { gap: 20px; padding: 24px 16px; }

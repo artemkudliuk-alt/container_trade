@@ -1222,7 +1222,7 @@ a.link-arrow:hover .ico, a:hover .link-arrow .ico {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(180deg, rgba(16, 26, 43, 0) 40%, #000 100%);
+  background: linear-gradient(180deg, rgba(16, 22, 31, 0.25) 0%, rgba(16, 22, 31, 0.2) 35%, rgba(16, 22, 31, 0.55) 65%, rgba(0, 0, 0, 0.9) 100%);
   pointer-events: none;
 }
 .hero__video {

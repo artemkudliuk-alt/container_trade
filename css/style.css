@@ -5181,6 +5181,20 @@ fieldset.fgroup {
   object-fit: cover;
   transition: opacity 0.2s;
 }
+@media (min-width: 1024px) {
+  .pd__gallery {
+    position: sticky;
+    top: 100px;
+    transition: top 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .is-pd-bar .pd__gallery {
+    top: 188px;
+  }
+  .pd__main {
+    width: min(100%, max(360px, (100svh - 470px) * 776 / 518));
+    margin-inline: auto;
+  }
+}
 .pd__main-img.is-fading {
   opacity: 0;
 }

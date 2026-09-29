@@ -25,6 +25,15 @@
     aspect-ratio: 776 / 518;
   }
   &__main-img { width: 100%; height: 100%; object-fit: cover; transition: opacity .2s; }
+
+  // десктоп: фото закреплено, прокручивается правая колонка;
+  // когда появляется плавающая панель покупки — галерея сдвигается под неё
+  @include desk {
+    &__gallery { position: sticky; top: 100px; transition: top .25s cubic-bezier(.16, 1, .3, 1); }
+    .is-pd-bar &__gallery { top: 188px; }
+    // невысокий экран: главное фото уменьшается пропорционально, чтобы галерея с миниатюрами влезала в окно
+    &__main { width: min(100%, max(360px, calc((100svh - 470px) * 776 / 518))); margin-inline: auto; }
+  }
   &__main-img.is-fading { opacity: 0; }
   &__thumbs-wrap { position: relative; }
   &__thumbs {

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico with context %}
+
+{% macro field(name, label, req=false, type='text', ac='', cls='') %}
+          <label class="form__field form__field--float{{ cls }}">
+            <input type="{{ type }}" name="{{ name }}" placeholder="{{ label }}"{% if req %} required{% endif %}{% if ac %} autocomplete="{{ ac }}"{% endif %}>
+            <span class="form__ph">{{ label }}{% if req %}<b>*</b>{% endif %}</span>
+            <img class="form__err" src="img/icons/i-error.svg" width="20" height="20" alt="">
+          </label>
+{%- endmacro %}
+
+{% macro opt(group, text, checked=false, logo=false) %}
+          <label class="opt">
+            <input type="radio" name="{{ group }}" value="{{ text|striptags }}"{% if checked %} checked{% endif %}>
+            <span class="opt__box">{{ ico('check') }}</span>
+            <span class="opt__text">{{ text|safe }}</span>
+            {%- if logo %}<img class="opt__logo" src="img/icons/plata.svg" width="126" height="26" alt="plata by mono">{% endif %}
+          </label>
+{%- endmacro %}
+
+{% macro edit(cls) %}<a class="link-arrow osum__edit {{ cls }}" href="#" data-modal-open="cart">Изменить заказ{{ ico('edit') }}</a>{% endmacro %}
+
+{% block top %}
+  <div class="top top--plain">
+{% include 'header.html' %}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <!-- ============ ОФОРМЛЕНИЕ ЗАКАЗА ============ -->
+  <form class="checkout" action="checkout-success.html" method="post" novalidate data-checkout>
+    <section class="section checkout__main">
+      <h1 class="checkout__title">Оформление заказа</h1>
+
+      <fieldset class="checkout__group">
+        <legend class="checkout__h2">Контактная информация</legend>
+        <div class="checkout__row">
+{{ field('firstname', 'Имя', true, ac='given-name') }}
+{{ field('lastname', 'Фамилия', true, ac='family-name') }}
+        </div>
+        <div class="checkout__row">
+{{ field('email', 'Электронная почта', true, 'email', 'email') }}
+          <label class="form__field form__field--phone">
+            <span class="form__label">Номер телефона</span>
+            <input type="tel" name="telephone" value="+38" autocomplete="tel">
+          </label>
+        </div>
+{{ field('company', 'Компания', ac='organization') }}
+        <div class="checkout__row">
+{{ field('country', 'Страна', true, ac='country-name') }}
+{{ field('city', 'Город', true, ac='address-level2') }}
+        </div>
+        <div class="checkout__row">
+{{ field('street', 'Улица', true, ac='address-line1') }}
+          <div class="checkout__row checkout__row--sub">
+{{ field('house', 'Номер дома') }}
+{{ field('flat', 'Номер квартиры') }}
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="checkout__group">
+        <legend class="checkout__h2">Оплата</legend>
+{{ opt('payment', 'Оплата картой,<br class="opt__br"> Apple Pay, Google Pay', true, true) }}
+{{ opt('payment', 'Банковский перевод') }}
+{{ opt('payment', 'Оплата наличными в офисе') }}
+      </fieldset>
+
+      <fieldset class="checkout__group">
+        <legend class="checkout__h2">Доставка</legend>
+{{ opt('shipping', 'Адресная доставка', true) }}
+{{ opt('shipping', 'Доставка автомобилем') }}
+{{ opt('shipping', 'Доставка железнодорожным транспортом') }}
+{{ opt('shipping', 'Морская доставка') }}
+      </fieldset>
+    </section>
+
+    <section class="section checkout__side" aria-label="Ваш заказ">
+      <div class="osum" data-osum>
+       <div class="osum__box">
+        <div class="osum__head">
+          <h2 class="osum__title">Содержимое заказа</h2>
+          {{ edit('osum__edit--d') }}
+          <button class="filters__toggle osum__toggle" type="button" aria-expanded="false" aria-label="Показать заказ" data-osum-toggle>{{ ico('plus') }}{{ ico('minus') }}</button>
+        </div>
+        <div class="osum__body">
+          <ul class="osum__list">
+            {%- for c in order %}
+            <li class="osum__item">
+              <img class="osum__img" src="img/{{ c.img }}.webp" width="72" height="72" alt="">
+              <div class="osum__titles">
+                <span class="prod__code">{{ c.code }}</span>
+                <a class="osum__name" href="product.html">{{ c.name }}</a>
+              </div>
+              <span class="osum__price">{{ c.total }}$</span>
+            </li>
+            {%- endfor %}
+          </ul>
+          {{ edit('osum__edit--m') }}
+        </div>
+       </div>
+      </div>
+
+      <div class="checkout__final">
+        <label class="form__field form__field--area">
+          <textarea name="comment" placeholder="Комментарий к заказу (по желанию)" rows="4"></textarea>
+          <span class="form__ph">Комментарий к заказу (по желанию)</span>
+        </label>
+        <label class="check checkout__agree">
+          <input type="checkbox" name="agree" checked required>
+          <span class="check__box">{{ ico('cb') }}</span>
+          <span class="check__label">Соглашаюсь с <a href="offer.html" target="_blank">условиями публичной оферты</a></span>
+        </label>
+        <div class="checkout__total">
+          <div class="checkout__sum">
+            <p class="checkout__delivery">Доставка: рассчитает менеджер</p>
+            <p class="checkout__pay">Итого к оплате: {{ order_total }}$</p>
+          </div>
+          <button class="btn checkout__submit" type="submit">Оформить заказ</button>
+        </div>
+      </div>
+    </section>
+  </form>
+{% endblock %}

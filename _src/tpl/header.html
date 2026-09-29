@@ -1,0 +1,137 @@
+{% from 'macros.html' import ico %}
+    <div class="header-slot">
+    <div class="header-wrap">
+      <header class="header{% if simple_header %} header--simple{% endif %}">
+        <a class="header__logo" href="index.html" aria-label="Container Trade — на главную">
+          <img class="header__logo-img" src="img/icons/logo.svg" width="162" height="64" alt="Container Trade">
+        </a>
+
+        <nav class="header__nav" aria-label="Основное меню">
+          <!-- Каталог: мега-меню -->
+          <div class="dd dd--catalog" data-dd>
+            <button class="btn-catalog" type="button" aria-expanded="false" data-dd-toggle>
+              {{ ico('menu') }}{{ ico('x') }}<span class="btn-catalog__text">Каталог</span>
+            </button>
+            <div class="dd__panel mega" data-mega>
+              <div class="mega__grid" data-level="root">
+                {%- for c in cats %}
+                <a class="mega__card mega__card--{{ c.key }}" href="#" data-sub="{{ c.key }}">
+                  <span class="mega__media"><img src="img/mm-{{ c.key }}.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">{{ c.name_br|safe }}</span>
+                </a>
+                {%- endfor %}
+              </div>
+              {%- for c in cats %}
+              <div class="mega__sub" data-level="{{ c.key }}" hidden>
+                <div class="mega__sub-media"><img src="img/mm-{{ c.key }}.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back>{{ ico('back') }}{{ c.name }}</button>
+                <ul class="menu-list">
+                  {%- for s in c.subs %}<li><a href="{{ c.href }}">{{ s }}</a></li>{% endfor %}
+                </ul>
+              </div>
+              {%- endfor %}
+            </div>
+          </div>
+
+          <div class="dd" data-dd>
+            <a class="nav-link nav-link--drop" href="#" aria-expanded="false" data-dd-toggle>О нас {{ ico('chev14') }}</a>
+            <div class="dd__panel dd-list">
+              {%- for a in about %}<a href="{{ about_links.get(a, '#') }}"{% if a == 'Обратная связь' %} data-modal-open="feedback"{% endif %}>{{ a }}</a>{% endfor %}
+            </div>
+          </div>
+          <a class="nav-link{% if current == 'reviews' %} is-current{% endif %}" href="reviews.html">Отзывы</a>
+          <a class="nav-link{% if current == 'price' %} is-current{% endif %}" href="price.html">Цены</a>
+          <a class="nav-link{% if current == 'contacts' %} is-current{% endif %}" href="contacts.html">Контакты</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="dd dd--phone" data-dd>
+            <a class="hbtn hbtn--phone" href="tel:0800211407" data-dd-toggle>
+              {{ ico('phone') }}<span class="hbtn__phone">0 800 211 407</span>{{ ico('chev14') }}
+            </a>
+            <div class="dd__panel dd-small dd-small--phones">
+              {%- for p in phones %}<a href="tel:{{ p|replace(' ', '') }}">{{ p }}</a>{% endfor %}
+            </div>
+          </div>
+          <div class="dd dd--lang" data-dd>
+            <button class="hbtn hbtn--lang" type="button" aria-expanded="false" data-dd-toggle>
+              {{ ico('globe') }}<span class="hbtn__text">RU</span>{{ ico('chev14') }}
+            </button>
+            <div class="dd__panel dd-small dd-small--lang">
+              {%- for l in langs %}<a href="#">{{ l }}</a>{% endfor %}
+            </div>
+          </div>
+          <div class="dd dd--cur" data-dd>
+            <button class="hbtn hbtn--cur" type="button" aria-expanded="false" data-dd-toggle>
+              <span class="hbtn__text">$ Доллар</span>{{ ico('chev14') }}
+            </button>
+            <div class="dd__panel dd-small dd-small--cur">
+              {%- for c in curs %}<button type="button">{{ c }}</button>{% endfor %}
+            </div>
+          </div>
+          <button class="hbtn hbtn--icon hbtn--search" type="button" aria-label="Поиск" data-modal-open="search">{{ ico('search') }}</button>
+          <button class="hbtn hbtn--icon hbtn--cart" type="button" aria-label="Корзина" data-modal-open="cart">
+            {{ ico('cart') }}<span class="hbtn__badge" data-cart-count>2</span>
+          </button>
+          <button class="hbtn hbtn--icon hbtn--burger" type="button" aria-label="Меню" aria-expanded="false" data-menu-toggle>
+            {{ ico('burger') }}{{ ico('x') }}
+          </button>
+        </div>
+      </header>
+
+      <!-- Меню по бургеру -->
+      <nav class="mmenu" id="mmenu" aria-label="Меню" data-mmenu>
+        <div class="mmenu__bar">
+          <div class="mmenu__item">
+            <button class="mmenu__btn" type="button" data-pop="lang">{{ ico('globe') }}RU{{ ico('chev14') }}</button>
+            <div class="mmenu__pop mmenu__pop--lang" data-pop-panel="lang">
+              <div class="mmenu__pop-head"><span>RU</span>{{ ico('chev14') }}</div>
+              {%- for l in langs %}<button type="button">{{ l }}</button>{% endfor %}
+            </div>
+          </div>
+          <div class="mmenu__item">
+            <button class="mmenu__btn" type="button" data-pop="cur">$ Доллар{{ ico('chev14') }}</button>
+            <div class="mmenu__pop" data-pop-panel="cur">
+              <div class="mmenu__pop-head"><span>$ Доллар</span>{{ ico('chev14') }}</div>
+              {%- for c in curs %}<button type="button">{{ c }}</button>{% endfor %}
+            </div>
+          </div>
+          <div class="mmenu__item mmenu__item--icon">
+            <button class="mmenu__btn" type="button" aria-label="Поиск" data-modal-open="search">{{ ico('search') }}</button>
+          </div>
+        </div>
+
+        <div class="mmenu__level" data-mlevel="root">
+          <div class="mmenu__grid">
+            {%- for c in cats %}
+            <a class="mmenu__card mmenu__card--{{ c.key }}" href="#" data-msub="{{ c.key }}">
+              <span class="mmenu__media"><img src="img/mm-{{ c.key }}.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">{{ c.name_br|safe }}</span>
+            </a>
+            {%- endfor %}
+          </div>
+          <ul class="menu-list">
+            <li><button type="button" data-msub="about">О нас{{ ico('chevr') }}</button></li>
+            <li><a href="reviews.html">Отзывы</a></li>
+            <li><a href="price.html">Цены</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        {%- for c in cats %}
+        <div class="mmenu__level" data-mlevel="{{ c.key }}" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-{{ c.key }}.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback>{{ ico('back') }}{{ c.name }}</button>
+          <ul class="menu-list">
+            {%- for s in c.subs %}<li><a href="{{ c.href }}">{{ s }}</a></li>{% endfor %}
+          </ul>
+        </div>
+        {%- endfor %}
+        <div class="mmenu__level" data-mlevel="about" hidden>
+          <button class="mmenu__back" type="button" data-mback>{{ ico('back') }}О нас</button>
+          <ul class="menu-list">
+            {%- for a in about %}<li><a href="{{ about_links.get(a, '#') }}"{% if a == 'Обратная связь' %} data-modal-open="feedback"{% endif %}>{{ a }}</a></li>{% endfor %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+    </div>

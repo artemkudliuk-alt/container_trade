@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, page_hero, trow with context %}
+{# Информационная страница: в OpenCart — information/information, тело — HTML из редактора #}
+{% block top %}
+{{ page_hero(img, h1, lead) }}
+{% endblock %}
+{% block content %}
+  <article class="section article rich">
+{% include 'info/' ~ slug ~ '.html' %}
+  </article>
+{% endblock %}

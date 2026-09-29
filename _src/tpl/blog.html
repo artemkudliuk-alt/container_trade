@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import page_hero, pcard, pager with context %}
+{% block top %}
+{{ page_hero('hero-blog', hero[0], hero[1]) }}
+{% endblock %}
+{% block content %}
+  <!-- ============ СТАТЬИ ============ -->
+  <section class="section" aria-label="Статьи">
+    <div class="grid-cards">
+      {%- for p in posts %}{{ pcard(p) }}{% endfor %}
+    </div>
+{{ pager('Страницы блога') }}
+  </section>
+{% endblock %}

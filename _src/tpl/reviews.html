@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import page_hero, rcard, pager with context %}
+{% block top %}
+{{ page_hero('hero-reviews', hero[0], hero[1], btn=hero[2]) }}
+{% endblock %}
+{% block content %}
+  <!-- ============ ОТЗЫВЫ ============ -->
+  <section class="section" aria-label="Отзывы клиентов">
+    <div class="grid-cards">
+      {%- for r in reviews %}{{ rcard(r) }}{% endfor %}
+    </div>
+{{ pager('Страницы отзывов') }}
+  </section>
+{% endblock %}

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заказ принят — Container Trade</title>
+  <meta name="description" content="Ваш заказ принят.">
+  <link rel="stylesheet" href="css/vendor/swiper-bundle.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="site">
+
+  <div class="top top--plain">
+
+    <div class="header-slot">
+    <div class="header-wrap">
+      <header class="header">
+        <a class="header__logo" href="index.html" aria-label="Container Trade — на главную">
+          <img class="header__logo-img" src="img/icons/logo.svg" width="162" height="64" alt="Container Trade">
+        </a>
+
+        <nav class="header__nav" aria-label="Основное меню">
+          <!-- Каталог: мега-меню -->
+          <div class="dd dd--catalog" data-dd>
+            <button class="btn-catalog" type="button" aria-expanded="false" data-dd-toggle>
+              <span class="ico ico--menu" aria-hidden="true"></span><span class="ico ico--x" aria-hidden="true"></span><span class="btn-catalog__text">Каталог</span>
+            </button>
+            <div class="dd__panel mega" data-mega>
+              <div class="mega__grid" data-level="root">
+                <a class="mega__card mega__card--sea" href="#" data-sub="sea">
+                  <span class="mega__media"><img src="img/mm-sea.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">Морские контейнеры</span>
+                </a>
+                <a class="mega__card mega__card--reef" href="#" data-sub="reef">
+                  <span class="mega__media"><img src="img/mm-reef.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">Рефрижераторные контейнеры</span>
+                </a>
+                <a class="mega__card mega__card--pw" href="#" data-sub="pw">
+                  <span class="mega__media"><img src="img/mm-pw.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">Контейнеры<br>Pallet Wide</span>
+                </a>
+                <a class="mega__card mega__card--ot" href="#" data-sub="ot">
+                  <span class="mega__media"><img src="img/mm-ot.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">Контейнеры<br>Open Top</span>
+                </a>
+                <a class="mega__card mega__card--parts" href="#" data-sub="parts">
+                  <span class="mega__media"><img src="img/mm-parts.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">Запчасти для контейнеров</span>
+                </a>
+                <a class="mega__card mega__card--rent" href="#" data-sub="rent">
+                  <span class="mega__media"><img src="img/mm-rent.webp" alt="" loading="lazy"></span>
+                  <span class="mega__name">Аренда контейнеров</span>
+                </a>
+              </div>
+              <div class="mega__sub" data-level="sea" hidden>
+                <div class="mega__sub-media"><img src="img/mm-sea.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back><span class="ico ico--back" aria-hidden="true"></span>Морские контейнеры</button>
+                <ul class="menu-list"><li><a href="catalog.html">20 футов</a></li><li><a href="catalog.html">20 футов high cube</a></li><li><a href="catalog.html">40 футов</a></li><li><a href="catalog.html">40 футов high cube</a></li><li><a href="catalog.html">45 футов high cube</a></li>
+                </ul>
+              </div>
+              <div class="mega__sub" data-level="reef" hidden>
+                <div class="mega__sub-media"><img src="img/mm-reef.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back><span class="ico ico--back" aria-hidden="true"></span>Рефрижераторные контейнеры</button>
+                <ul class="menu-list"><li><a href="catalog-reef.html">20 футов</a></li><li><a href="catalog-reef.html">40 футов high cube</a></li><li><a href="catalog-reef.html">45 футов high cube</a></li>
+                </ul>
+              </div>
+              <div class="mega__sub" data-level="pw" hidden>
+                <div class="mega__sub-media"><img src="img/mm-pw.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back><span class="ico ico--back" aria-hidden="true"></span>Контейнеры Pallet Wide</button>
+                <ul class="menu-list"><li><a href="catalog-pw.html">20 футов</a></li><li><a href="catalog-pw.html">40 футов</a></li><li><a href="catalog-pw.html">40 футов high cube</a></li><li><a href="catalog-pw.html">45 футов high cube</a></li>
+                </ul>
+              </div>
+              <div class="mega__sub" data-level="ot" hidden>
+                <div class="mega__sub-media"><img src="img/mm-ot.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back><span class="ico ico--back" aria-hidden="true"></span>Контейнеры Open Top</button>
+                <ul class="menu-list"><li><a href="catalog-ot.html">20 футов</a></li><li><a href="catalog-ot.html">40 футов</a></li><li><a href="catalog-ot.html">40 футов high cube</a></li>
+                </ul>
+              </div>
+              <div class="mega__sub" data-level="parts" hidden>
+                <div class="mega__sub-media"><img src="img/mm-parts.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back><span class="ico ico--back" aria-hidden="true"></span>Запчасти для контейнеров</button>
+                <ul class="menu-list"><li><a href="catalog-parts.html">Двери и замки</a></li><li><a href="catalog-parts.html">Полы</a></li><li><a href="catalog-parts.html">Уплотнители</a></li><li><a href="catalog-parts.html">Запчасти для рефконтейнеров</a></li>
+                </ul>
+              </div>
+              <div class="mega__sub" data-level="rent" hidden>
+                <div class="mega__sub-media"><img src="img/mm-rent.webp" alt=""></div>
+                <button class="mega__back" type="button" data-back><span class="ico ico--back" aria-hidden="true"></span>Аренда контейнеров</button>
+                <ul class="menu-list"><li><a href="catalog-rent.html">Посуточная аренда</a></li><li><a href="catalog-rent.html">Долгосрочная аренда</a></li><li><a href="catalog-rent.html">Аренда рефконтейнеров</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="dd" data-dd>
+            <a class="nav-link nav-link--drop" href="#" aria-expanded="false" data-dd-toggle>О нас <span class="ico ico--chev14" aria-hidden="true"></span></a>
+            <div class="dd__panel dd-list"><a href="about.html">О Container Trade</a><a href="price.html">Цены</a><a href="blog.html">Блог</a><a href="#" data-modal-open="feedback">Обратная связь</a><a href="sizes.html">Размеры контейнеров</a><a href="reviews.html">Отзывы</a><a href="privacy.html">Политика конфиденциальности</a><a href="offer.html">Публичная оферта</a>
+            </div>
+          </div>
+          <a class="nav-link" href="reviews.html">Отзывы</a>
+          <a class="nav-link" href="price.html">Цены</a>
+          <a class="nav-link" href="contacts.html">Контакты</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="dd dd--phone" data-dd>
+            <a class="hbtn hbtn--phone" href="tel:0800211407" data-dd-toggle>
+              <span class="ico ico--phone" aria-hidden="true"></span><span class="hbtn__phone">0 800 211 407</span><span class="ico ico--chev14" aria-hidden="true"></span>
+            </a>
+            <div class="dd__panel dd-small dd-small--phones"><a href="tel:+380973485544">+38 097 348 55 44</a><a href="tel:+380973485566">+38 097 348 55 66</a>
+            </div>
+          </div>
+          <div class="dd dd--lang" data-dd>
+            <button class="hbtn hbtn--lang" type="button" aria-expanded="false" data-dd-toggle>
+              <span class="ico ico--globe" aria-hidden="true"></span><span class="hbtn__text">RU</span><span class="ico ico--chev14" aria-hidden="true"></span>
+            </button>
+            <div class="dd__panel dd-small dd-small--lang"><a href="#">En</a><a href="#">Ua</a>
+            </div>
+          </div>
+          <div class="dd dd--cur" data-dd>
+            <button class="hbtn hbtn--cur" type="button" aria-expanded="false" data-dd-toggle>
+              <span class="hbtn__text">$ Доллар</span><span class="ico ico--chev14" aria-hidden="true"></span>
+            </button>
+            <div class="dd__panel dd-small dd-small--cur"><button type="button">€ Евро</button><button type="button">₴ Безнал. (без НДС)</button><button type="button">₴ Безнал. (НДС)</button><button type="button">₴ Гривна</button>
+            </div>
+          </div>
+          <button class="hbtn hbtn--icon hbtn--search" type="button" aria-label="Поиск" data-modal-open="search"><span class="ico ico--search" aria-hidden="true"></span></button>
+          <button class="hbtn hbtn--icon hbtn--cart" type="button" aria-label="Корзина" data-modal-open="cart">
+            <span class="ico ico--cart" aria-hidden="true"></span><span class="hbtn__badge" data-cart-count>2</span>
+          </button>
+          <button class="hbtn hbtn--icon hbtn--burger" type="button" aria-label="Меню" aria-expanded="false" data-menu-toggle>
+            <span class="ico ico--burger" aria-hidden="true"></span><span class="ico ico--x" aria-hidden="true"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Меню по бургеру -->
+      <nav class="mmenu" id="mmenu" aria-label="Меню" data-mmenu>
+        <div class="mmenu__bar">
+          <div class="mmenu__item">
+            <button class="mmenu__btn" type="button" data-pop="lang"><span class="ico ico--globe" aria-hidden="true"></span>RU<span class="ico ico--chev14" aria-hidden="true"></span></button>
+            <div class="mmenu__pop mmenu__pop--lang" data-pop-panel="lang">
+              <div class="mmenu__pop-head"><span>RU</span><span class="ico ico--chev14" aria-hidden="true"></span></div><button type="button">En</button><button type="button">Ua</button>
+            </div>
+          </div>
+          <div class="mmenu__item">
+            <button class="mmenu__btn" type="button" data-pop="cur">$ Доллар<span class="ico ico--chev14" aria-hidden="true"></span></button>
+            <div class="mmenu__pop" data-pop-panel="cur">
+              <div class="mmenu__pop-head"><span>$ Доллар</span><span class="ico ico--chev14" aria-hidden="true"></span></div><button type="button">€ Евро</button><button type="button">₴ Безнал. (без НДС)</button><button type="button">₴ Безнал. (НДС)</button><button type="button">₴ Гривна</button>
+            </div>
+          </div>
+          <div class="mmenu__item mmenu__item--icon">
+            <button class="mmenu__btn" type="button" aria-label="Поиск" data-modal-open="search"><span class="ico ico--search" aria-hidden="true"></span></button>
+          </div>
+        </div>
+
+        <div class="mmenu__level" data-mlevel="root">
+          <div class="mmenu__grid">
+            <a class="mmenu__card mmenu__card--sea" href="#" data-msub="sea">
+              <span class="mmenu__media"><img src="img/mm-sea.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">Морские контейнеры</span>
+            </a>
+            <a class="mmenu__card mmenu__card--reef" href="#" data-msub="reef">
+              <span class="mmenu__media"><img src="img/mm-reef.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">Рефрижераторные контейнеры</span>
+            </a>
+            <a class="mmenu__card mmenu__card--pw" href="#" data-msub="pw">
+              <span class="mmenu__media"><img src="img/mm-pw.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">Контейнеры<br>Pallet Wide</span>
+            </a>
+            <a class="mmenu__card mmenu__card--ot" href="#" data-msub="ot">
+              <span class="mmenu__media"><img src="img/mm-ot.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">Контейнеры<br>Open Top</span>
+            </a>
+            <a class="mmenu__card mmenu__card--parts" href="#" data-msub="parts">
+              <span class="mmenu__media"><img src="img/mm-parts.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">Запчасти для контейнеров</span>
+            </a>
+            <a class="mmenu__card mmenu__card--rent" href="#" data-msub="rent">
+              <span class="mmenu__media"><img src="img/mm-rent.webp" alt="" loading="lazy"></span>
+              <span class="mmenu__name">Аренда контейнеров</span>
+            </a>
+          </div>
+          <ul class="menu-list">
+            <li><button type="button" data-msub="about">О нас<span class="ico ico--chevr" aria-hidden="true"></span></button></li>
+            <li><a href="reviews.html">Отзывы</a></li>
+            <li><a href="price.html">Цены</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="sea" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-sea.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>Морские контейнеры</button>
+          <ul class="menu-list"><li><a href="catalog.html">20 футов</a></li><li><a href="catalog.html">20 футов high cube</a></li><li><a href="catalog.html">40 футов</a></li><li><a href="catalog.html">40 футов high cube</a></li><li><a href="catalog.html">45 футов high cube</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="reef" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-reef.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>Рефрижераторные контейнеры</button>
+          <ul class="menu-list"><li><a href="catalog-reef.html">20 футов</a></li><li><a href="catalog-reef.html">40 футов high cube</a></li><li><a href="catalog-reef.html">45 футов high cube</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="pw" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-pw.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>Контейнеры Pallet Wide</button>
+          <ul class="menu-list"><li><a href="catalog-pw.html">20 футов</a></li><li><a href="catalog-pw.html">40 футов</a></li><li><a href="catalog-pw.html">40 футов high cube</a></li><li><a href="catalog-pw.html">45 футов high cube</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="ot" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-ot.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>Контейнеры Open Top</button>
+          <ul class="menu-list"><li><a href="catalog-ot.html">20 футов</a></li><li><a href="catalog-ot.html">40 футов</a></li><li><a href="catalog-ot.html">40 футов high cube</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="parts" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-parts.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>Запчасти для контейнеров</button>
+          <ul class="menu-list"><li><a href="catalog-parts.html">Двери и замки</a></li><li><a href="catalog-parts.html">Полы</a></li><li><a href="catalog-parts.html">Уплотнители</a></li><li><a href="catalog-parts.html">Запчасти для рефконтейнеров</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="rent" hidden>
+          <div class="mmenu__sub-media"><img src="img/mm-rent.webp" alt=""></div>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>Аренда контейнеров</button>
+          <ul class="menu-list"><li><a href="catalog-rent.html">Посуточная аренда</a></li><li><a href="catalog-rent.html">Долгосрочная аренда</a></li><li><a href="catalog-rent.html">Аренда рефконтейнеров</a></li>
+          </ul>
+        </div>
+        <div class="mmenu__level" data-mlevel="about" hidden>
+          <button class="mmenu__back" type="button" data-mback><span class="ico ico--back" aria-hidden="true"></span>О нас</button>
+          <ul class="menu-list"><li><a href="about.html">О Container Trade</a></li><li><a href="price.html">Цены</a></li><li><a href="blog.html">Блог</a></li><li><a href="#" data-modal-open="feedback">Обратная связь</a></li><li><a href="sizes.html">Размеры контейнеров</a></li><li><a href="reviews.html">Отзывы</a></li><li><a href="privacy.html">Политика конфиденциальности</a></li><li><a href="offer.html">Публичная оферта</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    </div>
+  </div>
+
+<main class="page">
+
+  <!-- ============ ЗАКАЗ ПРИНЯТ ============ -->
+  <section class="section done">
+    <img class="done__icon" src="img/icons/i-ok.svg" width="120" height="120" alt="">
+    <h1 class="done__title">Ваш заказ принят!</h1>
+    <div class="done__text">
+      <p>Заказ №4398204 принят и передан в работу специалистам нашей компании.</p>
+      <p>Копия заказа отправлена на <a href="mailto:youremail@gmail.com">youremail@gmail.com</a></p>
+      <p>Наш менеджер свяжется с вами в ближайшее время, чтобы уточнить детали заказа, адрес доставки и ответить на любые вопросы.</p>
+    </div>
+    <p class="done__note">Если у вас возникнут срочные вопросы, вы всегда можете связаться с нами напрямую через страницу <a href="contacts.html">контактов</a> или по телефону.</p>
+    <a class="btn done__btn" href="index.html">Вернуться на главную</a>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section section--dark faq">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Если возникли сложности</p>
+        <h2 class="h2">Вопросы и ответы</h2>
+      </div>
+    </div>
+    <div class="faq__list">
+      <div class="faq__item is-open">
+        <button class="faq__q" type="button" aria-expanded="true">
+          <span class="faq__q-text">Каких размеров морские сухогрузные контейнеры есть в наличии?</span>
+          <span class="faq__ic" aria-hidden="true"><span class="ico ico--plus"></span><span class="ico ico--minus"></span></span>
+        </button>
+        <div class="faq__a"><p>В наличии контейнеры 10, 20 и 40 футов в стандартной и High Cube высоте. Стандартный 20-футовый контейнер имеет внутренний объём около 33&nbsp;м³, 40-футовый — около 67&nbsp;м³.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__q-text">Возможна ли аренда морских контейнеров?</span>
+          <span class="faq__ic" aria-hidden="true"><span class="ico ico--plus"></span><span class="ico ico--minus"></span></span>
+        </button>
+        <div class="faq__a"><p>Да, мы сдаём контейнеры в посуточную и долгосрочную аренду. Условия и стоимость зависят от типа контейнера и срока — уточняйте у менеджера.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__q-text">Как можно использовать морские контейнеры?</span>
+          <span class="faq__ic" aria-hidden="true"><span class="ico ico--plus"></span><span class="ico ico--minus"></span></span>
+        </button>
+        <div class="faq__a"><p>Контейнеры используют для перевозки и хранения грузов, как склады, бытовки, мастерские, гаражи и основу для модульных построек.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__q-text">В чём плюсы использования морских контейнеров?</span>
+          <span class="faq__ic" aria-hidden="true"><span class="ico ico--plus"></span><span class="ico ico--minus"></span></span>
+        </button>
+        <div class="faq__a"><p>Прочность, стандартные размеры, защита груза от погоды и взлома, простая транспортировка любым видом транспорта.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__q-text">В чём сложности транспортировки морских контейнеров?</span>
+          <span class="faq__ic" aria-hidden="true"><span class="ico ico--plus"></span><span class="ico ico--minus"></span></span>
+        </button>
+        <div class="faq__a"><p>Нужна специальная техника для погрузки и подходящий подъезд к площадке. Мы организуем доставку под ключ и подскажем, как подготовить место установки.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__contacts">
+        <a class="footer__logo" href="index.html"><img src="img/icons/logo-footer.svg" width="148" height="58" alt="Container Trade"></a>
+        <div class="footer__list">
+          <div class="footer__phone">
+            <span class="ico ico--fphone" aria-hidden="true"></span>
+            <a class="footer__phone-num" href="tel:+380973485566">+38 097 348 55 66</a>
+            <a class="footer__msg" href="whatsapp://send?phone=+380973485544" aria-label="WhatsApp"><img src="img/icons/s-whatsapp.svg" width="18" height="18" alt=""></a>
+            <a class="footer__msg" href="tg://resolve?domain=Contrade" aria-label="Telegram"><img src="img/icons/s-telegram.svg" width="18" height="18" alt=""></a>
+            <a class="footer__msg" href="viber://chat?number=+380973485544" aria-label="Viber"><img src="img/icons/s-viber.svg" width="18" height="18" alt=""></a>
+          </div>
+          <a class="footer__row" href="mailto:sales@container-trade.net"><span class="ico ico--fmail" aria-hidden="true"></span>sales@container-trade.net</a>
+          <p class="footer__row footer__row--addr"><span class="ico ico--fpin" aria-hidden="true"></span>Украина, Одесса, ул. Адмиральский проспект 34-А, 65000</p>
+          <p class="footer__row footer__row--addr"><span class="ico ico--fpin" aria-hidden="true"></span>Estonia, Harju maakond, Tallinn, Kesklinna linnaosa, Narva mnt 13, 10151</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><img src="img/icons/s-instagram.svg" width="32" height="32" alt=""></a>
+            <a href="#" aria-label="LinkedIn"><img src="img/icons/s-linkedin.svg" width="32" height="32" alt=""></a>
+            <a href="#" aria-label="Facebook"><img src="img/icons/s-facebook.svg" width="32" height="32" alt=""></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__col">
+        <button class="footer__title" type="button" aria-expanded="false">Каталог<span class="ico ico--chevf" aria-hidden="true"></span></button>
+        <ul class="footer__links">
+          <li><a href="catalog-parts.html">Запчасти для рефконтейнеров</a></li>
+          <li><a href="catalog.html">Морские контейнеры</a></li>
+          <li><a href="catalog-reef.html">Рефрижераторные контейнеры</a></li>
+          <li><a href="catalog-pw.html">Контейнеры Pallet Wide</a></li>
+          <li><a href="catalog-ot.html">Контейнеры Open Top</a></li>
+        </ul>
+      </div>
+      <div class="footer__col is-open">
+        <button class="footer__title" type="button" aria-expanded="true">Услуги<span class="ico ico--chevf" aria-hidden="true"></span></button>
+        <ul class="footer__links">
+          <li><a href="exchange.html">Обмен и возврат</a></li>
+          <li><a href="repair.html">Ремонт контейнеров</a></li>
+          <li><a href="storage.html">Хранение контейнеров</a></li>
+          <li><a href="delivery.html">Доставка и оплата</a></li>
+          <li><a href="catalog-rent.html">Аренда контейнеров</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <button class="footer__title" type="button" aria-expanded="false">Container Trade<span class="ico ico--chevf" aria-hidden="true"></span></button>
+        <ul class="footer__links">
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="price.html">Цены</a></li>
+          <li><a href="blog.html">Блог</a></li>
+          <li><a href="#" data-modal-open="feedback">Обратная связь</a></li>
+          <li><a href="sizes.html">Размеры контейнеров</a></li>
+          <li><a href="reviews.html">Отзывы</a></li>
+          <li><a href="privacy.html">Политика конфиденциальности</a></li>
+          <li><a href="offer.html">Публичная оферта</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© Container Trade 2020 — 2026</p>
+      <div class="footer__maps"><a href="sitemap.html">Карта сайта</a><a href="sitemap-products.html">Карта сайта товары</a></div>
+      <ul class="footer__pay"><li>VISA</li><li>MasterCard</li><li>LiqPay</li></ul>
+      <a class="footer__dev" href="#">Сделано в Nextweb</a>
+    </div>
+  </footer>
+</main>
+
+<!-- ============ МОДАЛКА: ПОИСК ============ -->
+<div class="modal modal--search search" id="modal-search" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="search-title" data-modal="search" data-state="recent">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close><span class="ico ico--close" aria-hidden="true"></span></button>
+  <h2 class="modal__title" id="search-title">Поиск по сайту</h2>
+  <form class="search__form" action="#" method="get" data-search-form>
+    <label class="search__field">
+      <span class="ico ico--search" aria-hidden="true"></span>
+      <span class="visually-hidden">Что ищем</span>
+      <input type="search" name="q" placeholder="Тип, модель или категория контейнера" autocomplete="off" data-search-input>
+    </label>
+    <button class="btn search__submit" type="submit">Найти</button>
+  </form>
+
+  <div class="search__block" data-search-state="recent">
+    <p class="modal__subtitle">Недавние запросы</p>
+    <ul class="search__block">
+      <li class="search__recent">
+        <button class="search__recent-text" type="button" data-search-query="Контейнеры 10 футов">Контейнеры 10 футов</button>
+        <button class="link-arrow" type="button" data-search-query="Контейнеры 10 футов">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></button>
+        <button class="search__recent-del" type="button" aria-label="Удалить из истории" data-recent-del><span class="ico ico--close20" aria-hidden="true"></span></button>
+      </li>
+      <li class="search__recent">
+        <button class="search__recent-text" type="button" data-search-query="Open Top">Open Top</button>
+        <button class="link-arrow" type="button" data-search-query="Open Top">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></button>
+        <button class="search__recent-del" type="button" aria-label="Удалить из истории" data-recent-del><span class="ico ico--close20" aria-hidden="true"></span></button>
+      </li>
+      <li class="search__recent">
+        <button class="search__recent-text" type="button" data-search-query="Запчасти для контейнеров">Запчасти для контейнеров</button>
+        <button class="link-arrow" type="button" data-search-query="Запчасти для контейнеров">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></button>
+        <button class="search__recent-del" type="button" aria-label="Удалить из истории" data-recent-del><span class="ico ico--close20" aria-hidden="true"></span></button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="search__empty" data-search-state="empty" hidden>
+    <span class="ico ico--nofound" aria-hidden="true"></span>
+    <p>У нас такого нет :(</p>
+  </div>
+
+  <div class="search__results" data-search-state="results" hidden>
+    <div class="search__block">
+      <p class="modal__subtitle">Найдено <span data-search-count>128</span> результатов</p>
+      <ul class="prod-list">
+        <li class="prod">
+          <img class="prod__img" src="img/prod-20.webp" width="100" height="100" alt="" loading="lazy">
+          <div class="prod__titles">
+            <span class="prod__code">45DC · 45 футов</span>
+            <a class="prod__name" href="product.html">45DC Морские контейнеры 45 футов</a>
+          </div>
+          <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+          <div class="cond"><span class="badge badge--c5">5 кат</span><span class="cond__text">Возможно, необходим некоторый ремонт.</span></div>
+          <img class="prod__type" src="img/icons/c-reefer.svg" width="32" height="32" alt="Рефрижератор">
+          <div class="prod__buy">
+            <div class="price"><span class="price__now">1500$</span></div>
+            <a class="btn" href="product.html">Подробнее</a>
+          </div>
+        </li>
+        <li class="prod">
+          <img class="prod__img" src="img/prod-20.webp" width="100" height="100" alt="" loading="lazy">
+          <div class="prod__titles">
+            <span class="prod__code">20DC · 20 футов</span>
+            <a class="prod__name" href="product.html">20DC Морские контейнеры 20 футов</a>
+          </div>
+          <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+          <div class="cond"><span class="badge badge--new">NEW</span><span class="cond__text">Новые контейнеры и «one way».</span></div>
+          <img class="prod__type" src="img/icons/c-ship.svg" width="32" height="32" alt="Морской">
+          <div class="prod__buy">
+            <div class="price"><span class="price__now">1500$</span></div>
+            <a class="btn" href="product.html">Подробнее</a>
+          </div>
+        </li>
+        <li class="prod">
+          <img class="prod__img" src="img/prod-40hc.webp" width="100" height="100" alt="" loading="lazy">
+          <div class="prod__titles">
+            <span class="prod__code">40DC · 40 футов · high cube</span>
+            <a class="prod__name" href="product.html">40HC Морские контейнеры 40 футов high cube</a>
+          </div>
+          <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+          <div class="cond"><span class="badge badge--c3">3 кат</span><span class="cond__text">Удовлетворительное состояние. Старше 15 лет и восстановленные.</span></div>
+          <img class="prod__type" src="img/icons/c-reefer.svg" width="32" height="32" alt="Рефрижератор">
+          <div class="prod__buy">
+            <div class="price"><span class="price__now">1500$</span></div>
+            <a class="btn" href="product.html">Подробнее</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <a class="link-arrow search__all" href="search.html">Показать все<span class="ico ico--arrow" aria-hidden="true"></span></a>
+  </div>
+</div>
+
+<!-- ============ МОДАЛКА: КОРЗИНА ============ -->
+<div class="modal modal--cart cart" id="modal-cart" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="cart-title" data-modal="cart">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close><span class="ico ico--close" aria-hidden="true"></span></button>
+  <h2 class="modal__title" id="cart-title" data-cart-title>В корзине 3 товара</h2>
+
+  <div class="cart__full" data-cart-full>
+    <ul class="cart__list">
+      <li class="cart__item" data-cart-item data-price="1200">
+        <div class="cart__head">
+          <img class="cart__img" src="img/prod-20.webp" width="72" height="72" alt="">
+          <div class="prod__titles">
+            <span class="prod__code">10DC · 10 футов</span>
+            <a class="prod__name" href="product.html">10DC Морские контейнеры 10 футов</a>
+          </div>
+        </div>
+        <div class="cart__controls">
+          <span class="cart__price" data-cart-price>2400$</span>
+          <div class="qty">
+            <button class="qty__btn qty__btn--minus" type="button" aria-label="Меньше" data-qty="-1"></button>
+            <input class="qty__val" type="number" min="1" max="99" value="2" aria-label="Количество" data-qty-val>
+            <button class="qty__btn qty__btn--plus" type="button" aria-label="Больше" data-qty="1"></button>
+          </div>
+          <button class="cart__del" type="button" aria-label="Удалить" data-cart-del><span class="ico ico--trash" aria-hidden="true"></span></button>
+        </div>
+      </li>
+      <li class="cart__item" data-cart-item data-price="3200">
+        <div class="cart__head">
+          <img class="cart__img" src="img/prod-40hc.webp" width="72" height="72" alt="">
+          <div class="prod__titles">
+            <span class="prod__code">40DC · 40 футов · high cube</span>
+            <a class="prod__name" href="product.html">40HC Морские контейнеры 40 футов high cube</a>
+          </div>
+        </div>
+        <div class="cart__controls">
+          <span class="cart__price" data-cart-price>3200$</span>
+          <div class="qty">
+            <button class="qty__btn qty__btn--minus" type="button" aria-label="Меньше" data-qty="-1" disabled></button>
+            <input class="qty__val" type="number" min="1" max="99" value="1" aria-label="Количество" data-qty-val>
+            <button class="qty__btn qty__btn--plus" type="button" aria-label="Больше" data-qty="1"></button>
+          </div>
+          <button class="cart__del" type="button" aria-label="Удалить" data-cart-del><span class="ico ico--trash" aria-hidden="true"></span></button>
+        </div>
+      </li>
+    </ul>
+    <div class="cart__foot">
+      <p class="cart__sum">Сумма <span data-cart-sum>5600</span>$</p>
+      <a class="btn cart__order" href="checkout.html">Оформить заказ</a>
+    </div>
+  </div>
+
+  <div class="cart__empty" data-cart-empty hidden>
+    <p class="modal__subtitle">Вас может заинтересовать</p>
+
+      <div class="slider slider--novelty" data-slider="novelty">
+        <button class="slider__arrow slider__arrow--prev" type="button" aria-label="Назад" data-prev><span class="ico ico--slide" aria-hidden="true"></span></button>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+          <div class="ncard swiper-slide">
+            <div class="ncard__top">
+              <img class="ncard__img" src="img/prod-40hc.webp" width="100" height="100" alt="" loading="lazy">
+              <div class="ncard__info">
+                <div class="prod__titles">
+            <span class="prod__code">10DC · 10 футов</span>
+            <a class="prod__name" href="product.html">10DC Морские контейнеры 10 футов</a>
+          </div>
+                <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+              </div>
+            </div>
+            <div class="ncard__bottom">
+              <div class="cond"><span class="badge badge--c1">1 кат</span><span class="cond__text">Хорошее состояние. Возможны незначительные деформации.</span></div>
+              <img class="prod__type" src="img/icons/c-dry.svg" width="32" height="32" alt="Сухогруз">
+              <div class="prod__buy">
+                <div class="price"><span class="price__now">1500$</span></div>
+                <a class="btn" href="product.html">Подробнее</a>
+              </div>
+            </div>
+          </div>
+          <div class="ncard swiper-slide">
+            <div class="ncard__top">
+              <img class="ncard__img" src="img/prod-40hc.webp" width="100" height="100" alt="" loading="lazy">
+              <div class="ncard__info">
+                <div class="prod__titles">
+            <span class="prod__code">40DC · 40 футов · high cube</span>
+            <a class="prod__name" href="product.html">40HC Морские контейнеры 40 футов high cube</a>
+          </div>
+                <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+              </div>
+            </div>
+            <div class="ncard__bottom">
+              <div class="cond"><span class="badge badge--new">NEW</span><span class="cond__text">Новые контейнеры и «one way».</span></div>
+              <img class="prod__type" src="img/icons/c-ship.svg" width="32" height="32" alt="Морской">
+              <div class="prod__buy">
+                <div class="price"><s class="price__old">2990$</s><span class="price__now price__now--sale">2500$</span></div>
+                <a class="btn" href="product.html">Подробнее</a>
+              </div>
+            </div>
+          </div>
+          <div class="ncard swiper-slide">
+            <div class="ncard__top">
+              <img class="ncard__img" src="img/prod-20.webp" width="100" height="100" alt="" loading="lazy">
+              <div class="ncard__info">
+                <div class="prod__titles">
+            <span class="prod__code">20DC · 20 футов</span>
+            <a class="prod__name" href="product.html">20DC Морские контейнеры 20 футов</a>
+          </div>
+                <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+              </div>
+            </div>
+            <div class="ncard__bottom">
+              <div class="cond"><span class="badge badge--c3">3 кат</span><span class="cond__text">Удовлетворительное состояние. Старше 15 лет и восстановленные.</span></div>
+              <img class="prod__type" src="img/icons/c-hc.svg" width="32" height="32" alt="High cube">
+              <div class="prod__buy">
+                <div class="price"><s class="price__old">2990$</s><span class="price__now price__now--sale">2500$</span></div>
+                <a class="btn" href="product.html">Подробнее</a>
+              </div>
+            </div>
+          </div>
+          <div class="ncard swiper-slide">
+            <div class="ncard__top">
+              <img class="ncard__img" src="img/prod-20.webp" width="100" height="100" alt="" loading="lazy">
+              <div class="ncard__info">
+                <div class="prod__titles">
+            <span class="prod__code">45DC · 45 футов</span>
+            <a class="prod__name" href="product.html">45DC Морские контейнеры 45 футов</a>
+          </div>
+                <div class="prod__meta">
+            <span class="meta"><span class="ico ico--check" aria-hidden="true"></span>В наличии 5 шт</span>
+            <span class="meta"><span class="ico ico--pin" aria-hidden="true"></span>Киев, Украина</span>
+          </div>
+              </div>
+            </div>
+            <div class="ncard__bottom">
+              <div class="cond"><span class="badge badge--c4">4 кат</span><span class="cond__text">Возможно, необходим некоторый ремонт.</span></div>
+              <img class="prod__type" src="img/icons/c-reefer.svg" width="32" height="32" alt="Рефрижератор">
+              <div class="prod__buy">
+                <div class="price"><span class="price__now">1500$</span></div>
+                <a class="btn" href="product.html">Подробнее</a>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <button class="slider__arrow slider__arrow--next" type="button" aria-label="Вперёд" data-next><span class="ico ico--slide" aria-hidden="true"></span></button>
+        <div class="dots" data-dots></div>
+      </div>
+  </div>
+</div>
+
+<!-- ============ МОДАЛКА: ОБРАТНАЯ СВЯЗЬ ============ -->
+<div class="modal modal--sm" id="modal-feedback" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="feedback-title" data-modal="feedback">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close><span class="ico ico--close" aria-hidden="true"></span></button>
+  <h2 class="modal__title" id="feedback-title">Обратная связь</h2>
+  <form class="form" action="#" method="post" novalidate data-feedback-form>
+    <label class="form__field">
+      <input type="text" name="name" placeholder="Имя" required autocomplete="name">
+      <span class="form__ph">Имя<b>*</b></span>
+    </label>
+    <label class="form__field">
+      <input type="email" name="email" placeholder="Электронная почта" required autocomplete="email">
+      <span class="form__ph">Электронная почта<b>*</b></span>
+    </label>
+    <label class="form__field form__field--phone">
+      <span class="form__label">Номер телефона</span>
+      <input type="tel" name="phone" value="+38" autocomplete="tel">
+    </label>
+    <label class="form__field form__field--area">
+      <textarea name="message" placeholder="Ваше сообщение" rows="4"></textarea>
+      <span class="form__ph">Ваше сообщение</span>
+    </label>
+    <button class="btn btn--block" type="submit">Отправить сообщение</button>
+  </form>
+</div>
+
+<!-- ============ МОДАЛКА: СООБЩЕНИЕ ОТПРАВЛЕНО ============ -->
+<div class="modal modal--sm modal--success" id="modal-success" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="success-title" data-modal="success">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close><span class="ico ico--close" aria-hidden="true"></span></button>
+  <img class="modal__icon" src="img/icons/i-success.svg" width="80" height="80" alt="">
+  <h2 class="modal__title" id="success-title">Приняли ваше сообщение</h2>
+  <p class="modal__text">Наш менеджер свяжется с вами в ближайшее время, чтобы уточнить детали ответить на любые вопросы.</p>
+</div>
+<div class="overlay" data-overlay></div>
+</div>
+
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/swiper-bundle.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, page_hero with context %}
+{% block head %}<link rel="stylesheet" href="css/vendor/leaflet.css">{% endblock %}
+{% block scripts %}<script src="js/vendor/leaflet.js"></script>
+<script src="js/ctmap.js"></script>{% endblock %}
+{% block top %}
+{{ page_hero('hero-contacts', hero[0], hero[1]) }}
+{% endblock %}
+{% macro msg() %}<div class="contacts__msg">
+            <a href="#" aria-label="Telegram"><img src="img/icons/m-telegram.svg" width="20" height="20" alt=""></a>
+            <a href="#" aria-label="WhatsApp"><img src="img/icons/m-whatsapp.svg" width="20" height="20" alt=""></a>
+            <a href="#" aria-label="Viber"><img src="img/icons/m-viber.svg" width="20" height="20" alt=""></a>
+          </div>{% endmacro %}
+{% block content %}
+  <!-- ============ КОНТАКТЫ ============ -->
+  <div class="contacts__cards">
+    <section class="section contacts__card" aria-label="Телефоны">
+      <div class="contacts__row">
+        <span class="contacts__ic">{{ ico('cphone') }}</span>
+        <div class="contacts__main contacts__main--tight">
+          <a class="contacts__big" href="tel:0800218626">0 800 218 626</a>
+          <span class="contacts__sub">Бесплатный звонок по Украине</span>
+        </div>
+      </div>
+      <div class="contacts__row contacts__row--msg">
+        <span class="contacts__ic">{{ ico('cphone') }}</span>
+        <div class="contacts__main contacts__main--tight">
+          <a class="contacts__big" href="tel:+380674829588">+38 067 482 95 88</a>
+          <span class="contacts__sub">Связь с руководством</span>
+        </div>
+        {{ msg() }}
+      </div>
+    </section>
+
+    <section class="section contacts__card" aria-label="Отдел продаж">
+      <div class="contacts__row contacts__row--msg contacts__row--gap">
+        <span class="contacts__ic">{{ ico('cphone') }}</span>
+        <div class="contacts__main">
+          <a class="contacts__big" href="tel:+380973485544">+38 097 348 55 44</a>
+          <a class="contacts__big" href="tel:+380973485566">+38 097 348 55 66</a>
+        </div>
+        {{ msg() }}
+      </div>
+      <div class="contacts__row contacts__row--mail">
+        <span class="contacts__ic">{{ ico('cmail') }}</span>
+        <a class="contacts__big contacts__big--sm" href="mailto:sales@container-trade.net">sales@container-trade.net</a>
+      </div>
+    </section>
+
+    <section class="section contacts__card" aria-label="Адреса">
+      <address class="contacts__row">
+        <span class="contacts__ic contacts__ic--pin">{{ ico('cpin') }}</span>
+        <span class="contacts__addr">Украина, Одесса, ул. Адмиральский проспект 34-А, 65000</span>
+      </address>
+      <address class="contacts__row">
+        <span class="contacts__ic contacts__ic--pin">{{ ico('cpin') }}</span>
+        <span class="contacts__addr">Estonia, Harju maakond, Tallinn, Kesklinna linnaosa, Narva mnt 13, 10151</span>
+      </address>
+    </section>
+  </div>
+
+  <section class="section">
+    <h2 class="h2 h2--sm">Склады в Украине</h2>
+    <ul class="contacts__stores" data-stores>
+      {%- for s in stores %}
+      <li><button class="contacts__store" type="button" data-ll="{{ s[1] }},{{ s[2] }}">{{ ico('cpin') }}{{ s[0] }}</button></li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="section contacts__map" aria-label="Карта складов">
+    <div class="contacts__map-canvas" data-stores-map>
+      <p class="ctmap__fallback">Карта не загрузилась. Адреса складов — в списке выше.</p>
+    </div>
+  </section>
+{% endblock %}

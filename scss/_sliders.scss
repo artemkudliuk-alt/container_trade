@@ -1,0 +1,58 @@
+@use "variables" as *;
+// =========================================================
+// Слайдеры (Swiper): стрелки и точки в стиле макета
+// Без инициализации (десктоп у отзывов/блога/партнёров) — обычная сетка
+// =========================================================
+.slider {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .swiper { width: 100%; }
+  .ncard.swiper-slide, .card.swiper-slide { height: auto; }
+  .swiper-initialized > .swiper-wrapper { display: flex; gap: 0; }
+
+  &__arrow {
+    position: absolute;
+    top: 74px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid $line;
+    border-radius: 50%;
+    background: #fff;
+    color: $muted;
+    transition: color .2s, box-shadow .2s, opacity .2s;
+
+    &:hover { color: $blue; box-shadow: $shadow; }
+    &--prev { left: -20px; }
+    &--prev .ico { transform: scaleX(-1); }
+    &--next { right: -20px; }
+    &.swiper-button-disabled, &.swiper-button-lock { opacity: 0; pointer-events: none; }
+
+    @include md { display: none; }
+  }
+
+  @include mob { gap: 16px; }
+}
+
+.dots {
+  display: flex;
+  gap: 12px;
+  align-self: flex-start;
+  &:empty, &.swiper-pagination-lock { display: none; }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border: 1px solid $blue;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color .2s;
+    &.is-active { background: $blue; }
+  }
+}

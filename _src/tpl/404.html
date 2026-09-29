@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico %}
+{% block top %}
+  <!-- ============ 404 ============ -->
+  <section class="e404">
+{% include 'header.html' %}
+    <div class="e404__media"><img src="img/404.webp" width="816" height="445" alt=""></div>
+    <div class="e404__text">
+      <div class="e404__titles">
+        <p class="e404__label">Ошибка 404</p>
+        <h1 class="e404__title">Здесь пусто, но наш склад заполнен!</h1>
+        <p class="e404__lead">Нужная страница не найдена, зато в&nbsp;наличии сотни контейнеров на&nbsp;продажу и&nbsp;в&nbsp;аренду, а также оригинальные комплектующие.</p>
+      </div>
+      <div class="e404__btns">
+        <a class="btn" href="catalog.html">Посмотреть каталог</a>
+        <a class="btn btn--ghost" href="index.html">Вернуться на главную</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico with context %}
+{% block top %}
+  <div class="top top--plain">
+{% include 'header.html' %}
+  </div>
+{% endblock %}
+{% block content %}
+  <!-- ============ ЗАКАЗ ПРИНЯТ ============ -->
+  <section class="section done">
+    <img class="done__icon" src="img/icons/i-ok.svg" width="120" height="120" alt="">
+    <h1 class="done__title">Ваш заказ принят!</h1>
+    <div class="done__text">
+      <p>Заказ №4398204 принят и передан в работу специалистам нашей компании.</p>
+      <p>Копия заказа отправлена на <a href="mailto:youremail@gmail.com">youremail@gmail.com</a></p>
+      <p>Наш менеджер свяжется с вами в ближайшее время, чтобы уточнить детали заказа, адрес доставки и ответить на любые вопросы.</p>
+    </div>
+    <p class="done__note">Если у вас возникнут срочные вопросы, вы всегда можете связаться с нами напрямую через страницу <a href="contacts.html">контактов</a> или по телефону.</p>
+    <a class="btn done__btn" href="index.html">Вернуться на главную</a>
+  </section>
+
+{% include 'faq.html' %}
+{% endblock %}

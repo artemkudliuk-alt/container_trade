@@ -1,0 +1,93 @@
+@use "variables" as *;
+// =========================================================
+// Подвал
+// =========================================================
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px;
+  border-radius: 28px;
+  background: $dark;
+  color: rgba(255, 255, 255, .7);
+
+  &__top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  &__contacts { display: flex; flex-direction: column; gap: 36px; min-width: 0; }
+  &__logo { display: block; width: 148px; height: 58px; }
+  &__logo img { width: 100%; height: 100%; }
+  &__list { display: flex; flex-direction: column; gap: 20px; }
+
+  &__phone { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-height: 25px; }  // на 320 мессенджеры переносятся
+  &__phone .ico, &__row .ico { color: $blue; }
+  &__phone-num { @include t(20px, 25px, 500); color: #fff; white-space: nowrap; }
+  &__msg img { width: 18px; height: 18px; transition: opacity .2s; }
+  &__msg:hover img { opacity: .75; }
+
+  &__row { display: flex; align-items: flex-start; gap: 12px; @include t(14px, 18px); color: rgba(255, 255, 255, .7); }
+  &__row .ico { margin-top: 2px; }
+  &__row--addr:first-of-type { min-height: 40px; }
+  a#{&}__row { align-items: center; transition: color .2s; }
+  a#{&}__row .ico { margin-top: 0; }
+  a#{&}__row:hover { color: #fff; }
+
+  &__social { display: flex; gap: 12px; }
+  &__social img { width: 32px; height: 32px; transition: opacity .2s; }
+  &__social a:hover img { opacity: .8; }
+
+  &__col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    @include t(20px, 25px, 500);
+    color: #fff;
+    cursor: default;
+    .ico { display: none; }
+  }
+  &__links { display: flex; flex-direction: column; gap: 12px; }
+  &__links a, &__maps a, &__dev { @include t(14px, 18px); color: rgba(255, 255, 255, .7); transition: color .2s; }
+  &__links a:hover, &__maps a:hover, &__dev:hover { color: #fff; }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+  }
+  &__copy { @include t(14px, 18px); }
+  &__maps { display: flex; gap: 20px; }
+  &__pay { display: flex; gap: 8px; }
+  &__pay li {
+    padding: 4px 10px;
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 6px;
+    @include t(12px, 15px, 500);
+    color: rgba(255, 255, 255, .6);
+  }
+
+  @include md {
+    &__top { grid-template-columns: 1fr 1fr; }
+    &__bottom { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @include mob {
+    gap: 20px;
+    padding: 20px 16px 40px;
+    border-radius: 20px 20px 0 0;
+
+    &__top { display: flex; flex-direction: column; gap: 20px; }
+    &__contacts { gap: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+    &__logo { width: 118px; height: 46px; }
+    &__col { gap: 0; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+    &__col:last-child { padding-bottom: 0; border-bottom: 0; }
+    &__title { cursor: pointer; }
+    &__title .ico { display: block; transition: transform .2s; }
+    &__col.is-open &__title .ico { transform: rotate(180deg); }
+    &__links { display: none; padding-top: 20px; }
+    &__col.is-open &__links { display: flex; }
+    &__bottom { flex-direction: column; gap: 20px; padding-top: 20px; text-align: center; }
+  }
+}

@@ -1,0 +1,128 @@
+{% macro ico(name) %}<span class="ico ico--{{ name }}" aria-hidden="true"></span>{% endmacro %}
+
+{% macro cond(c) %}<div class="cond"><span class="badge {{ c[0] }}">{{ c[1] }}</span><span class="cond__text">{{ c[2] }}</span></div>{% endmacro %}
+
+{% macro price(p) %}<div class="price">{% if p.old %}<s class="price__old">{{ p.old }}</s><span class="price__now price__now--sale">{{ p.price }}</span>{% else %}<span class="price__now">{{ p.price }}</span>{% endif %}</div>{% endmacro %}
+
+{% macro meta() %}<div class="prod__meta">
+            <span class="meta">{{ ico('check') }}В наличии 5 шт</span>
+            <span class="meta">{{ ico('pin') }}Киев, Украина</span>
+          </div>{% endmacro %}
+
+{% macro titles(p) %}<div class="prod__titles">
+            <span class="prod__code">{{ p.code }}</span>
+            <a class="prod__name" href="product.html">{{ p.name }}</a>
+          </div>{% endmacro %}
+
+{# Строка товара #}
+{% macro prod(p) %}
+        <li class="prod">
+          <img class="prod__img" src="img/{{ p.img }}.webp" width="100" height="100" alt="" loading="lazy">
+          {{ titles(p) }}
+          {{ meta() }}
+          {{ cond(p.cond) }}
+          <img class="prod__type" src="img/icons/{{ p.type[0] }}.svg" width="32" height="32" alt="{{ p.type[1] }}">
+          <div class="prod__buy">
+            {{ price(p) }}
+            <a class="btn" href="product.html">Подробнее</a>
+          </div>
+        </li>
+{%- endmacro %}
+
+{# Карточка слайдера «Новинки» #}
+{% macro ncard(p) %}
+          <div class="ncard swiper-slide">
+            <div class="ncard__top">
+              <img class="ncard__img" src="img/{{ p.img }}.webp" width="100" height="100" alt="" loading="lazy">
+              <div class="ncard__info">
+                {{ titles(p) }}
+                {{ meta() }}
+              </div>
+            </div>
+            <div class="ncard__bottom">
+              {{ cond(p.cond) }}
+              <img class="prod__type" src="img/icons/{{ p.type[0] }}.svg" width="32" height="32" alt="{{ p.type[1] }}">
+              <div class="prod__buy">
+                {{ price(p) }}
+                <a class="btn" href="product.html">Подробнее</a>
+              </div>
+            </div>
+          </div>
+{%- endmacro %}
+
+{# Слайдер карточек товаров #}
+{% macro nslider(items, arrows=true) %}
+      <div class="slider slider--novelty" data-slider="novelty">
+        {% if arrows %}<button class="slider__arrow slider__arrow--prev" type="button" aria-label="Назад" data-prev>{{ ico('slide') }}</button>{% endif %}
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {%- for p in items %}{{ ncard(p) }}{% endfor %}
+          </div>
+        </div>
+        {% if arrows %}<button class="slider__arrow slider__arrow--next" type="button" aria-label="Вперёд" data-next>{{ ico('slide') }}</button>{% endif %}
+        <div class="dots" data-dots></div>
+      </div>
+{%- endmacro %}
+
+{# ===== Внутренние страницы ===== #}
+{% macro date_attr(d) %}{{ d[6:10] }}-{{ d[3:5] }}-{{ d[0:2] }}{% endmacro %}
+
+{# Карточка отзыва #}
+{% macro rcard(r) %}
+        <article class="card">
+          <img class="card__img" src="img/{{ r.img }}.webp" width="388" height="200" alt="Фото клиента" loading="lazy">
+          <div class="card__body">
+            <div class="stars" role="img" aria-label="Оценка 5 из 5"><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="card__title">{{ r.text }}</p>
+            <div class="card__foot"><span class="card__name">{{ r.name }}</span><time class="card__date" datetime="{{ date_attr(r.date) }}">{{ r.date }}</time></div>
+          </div>
+        </article>
+{%- endmacro %}
+
+{# Карточка статьи #}
+{% macro pcard(p, cls='') %}
+        <a class="card card--post{{ cls }}" href="blog-article.html">
+          <span class="card__media"><img class="card__img" src="img/{{ p.img }}.webp" width="388" height="200" alt="" loading="lazy"></span>
+          <span class="card__body">
+            <span class="card__post-head"><time class="card__date" datetime="{{ date_attr(p.date) }}">{{ p.date }}</time><span class="card__title">{{ p.title }}</span></span>
+            <span class="link-arrow">Читать{{ ico('arrow') }}</span>
+          </span>
+        </a>
+{%- endmacro %}
+
+{# Пагинация #}
+{% macro pager(label) %}
+      <nav class="pager" aria-label="{{ label }}">
+        <a class="pager__prev" href="#" aria-label="Предыдущая страница">{{ ico('pg') }}</a>
+        <span class="is-current" aria-current="page">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a class="pager__next" href="#" aria-label="Следующая страница">{{ ico('pg') }}</a>
+      </nav>
+{%- endmacro %}
+
+{# Первый экран внутренней страницы #}
+{% macro page_hero(img, title, lead, btn=none, date=none) %}
+  <section class="page-hero">
+    <img class="page-hero__bg" src="img/{{ img }}.webp" width="1680" height="560" alt="">
+{% include 'header.html' %}
+    <div class="page-hero__content">
+      <div class="page-hero__text">
+        {% if date %}<time class="page-hero__date" datetime="{{ date_attr(date) }}">{{ date }}</time>{% endif %}
+        <h1 class="page-hero__title">{{ title|replace('\n', '<br>') }}</h1>
+        <p class="page-hero__lead">{{ lead }}</p>
+      </div>
+      {% if btn %}<button class="btn page-hero__btn" type="button" data-modal-open="feedback">{{ btn }}</button>{% endif %}
+    </div>
+  </section>
+{%- endmacro %}
+
+{# Строки таблицы #}
+{% macro trow(cells, link=none) %}
+        <div class="table__row">
+          <div class="table__cells">{% for c in cells %}<span class="table__cell">{{ c }}</span>{% endfor %}</div>
+          {% if link %}<a class="link-arrow" href="#">{{ link }}{{ ico('arrow') }}</a>{% endif %}
+        </div>
+{%- endmacro %}

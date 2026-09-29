@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, prod, nslider %}
+{% block head %}<link rel="stylesheet" href="css/vendor/leaflet.css">{% endblock %}
+{% block scripts %}<script src="js/vendor/leaflet.js"></script>
+<script src="js/ctmap.js"></script>{% endblock %}
+{% block top %}
+<div class="top">
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+{% include 'header.html' %}
+
+    <div class="hero__content">
+      <div class="hero__text">
+        <h1 class="hero__title">Тысячи новых и&nbsp;б/&#8288;у контейнеров в&nbsp;наличии и&nbsp;под&nbsp;заказ</h1>
+        <p class="hero__lead">Морские, рефрижераторные, Open Top и Pallet Wide. Подберём под задачу и доставим по Украине и миру.</p>
+      </div>
+      <div class="ticker" aria-live="polite">
+        <ul class="ticker__list">
+          <li class="ticker__item">
+            <span class="ticker__ic"><img src="img/icons/a-wallet.svg" width="28" height="28" alt=""></span>
+            <span class="ticker__body"><b class="ticker__title">Оплата по факту отгрузки</b><span class="ticker__text">Рассчитываетесь при погрузке на ваш транспорт</span></span>
+          </li>
+          <li class="ticker__item">
+            <span class="ticker__ic"><img src="img/icons/a-glasses.svg" width="28" height="28" alt=""></span>
+            <span class="ticker__body"><b class="ticker__title">Осмотр до покупки</b><span class="ticker__text">Приезжайте на площадку и посмотрите конкретную единицу</span></span>
+          </li>
+          <li class="ticker__item">
+            <span class="ticker__ic"><img src="img/icons/a-warehouse.svg" width="28" height="28" alt=""></span>
+            <span class="ticker__body"><b class="ticker__title">Склады по всей Европе</b><span class="ticker__text">Нет рядом — привезём с ближайшего</span></span>
+          </li>
+          <li class="ticker__item">
+            <span class="ticker__ic"><img src="img/icons/a-docs.svg" width="28" height="28" alt=""></span>
+            <span class="ticker__body"><b class="ticker__title">Договор, безнал, ПДВ</b><span class="ticker__text">Работаем с юрлицами и ФОП, оплата на ФОП возможна</span></span>
+          </li>
+          <li class="ticker__item">
+            <span class="ticker__ic"><img src="img/icons/a-guarantee.svg" width="28" height="28" alt=""></span>
+            <span class="ticker__body"><b class="ticker__title">Закупки Prozorro</b><span class="ticker__text">Гарантийные письма, справки и техпаспорта — в день запроса</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAP + FILTER ============ -->
+  <section class="finder" aria-label="Карта наличия и подбор контейнера">
+    <!-- Карта наличия (модуль ctmap): склады, расчёт доставки до города -->
+    <div class="ctmap" data-ctmap>
+      <div class="ctmap__bar">
+        <p class="ctmap__title">Контейнеры — карта наличия</p>
+        <label class="ctmap__city">
+          <span class="visually-hidden">Город назначения</span>
+          {{ ico('pin') }}
+          <input type="text" list="ctmap-cities" value="Житомир" placeholder="Введите город назначения" autocomplete="off" data-ctmap-city>
+          <datalist id="ctmap-cities"></datalist>
+        </label>
+        <div class="select ctmap__type" data-select>
+          <span class="visually-hidden">Тип контейнера</span>
+          <select data-ctmap-type>
+            <option value="20dv">20' Dry Van</option>
+            <option value="40dv">40' Dry Van</option>
+            <option value="40hc">40' High Cube</option>
+            <option value="20rf">20' Reefer</option>
+            <option value="40rf">40' Reefer</option>
+          </select>
+          {{ ico('chev16') }}
+        </div>
+        <div class="ctmap__qty">
+          <span class="ctmap__qty-label" id="ctmap-qty">Кол-во</span>
+          <div class="qty">
+            <button class="qty__btn qty__btn--minus" type="button" aria-label="Меньше" data-ctmap-step="-1"></button>
+            <input class="qty__val" type="number" min="1" max="99" value="6" aria-labelledby="ctmap-qty" data-ctmap-qty>
+            <button class="qty__btn qty__btn--plus" type="button" aria-label="Больше" data-ctmap-step="1"></button>
+          </div>
+        </div>
+      </div>
+      <div class="ctmap__body">
+        <div class="ctmap__side">
+          <p class="ctmap__hint" data-ctmap-hint>Введите город назначения, чтобы увидеть ближайшие склады с контейнерами в наличии.</p>
+          <ul class="ctmap__list" aria-live="polite" data-ctmap-list></ul>
+        </div>
+        <div class="ctmap__map">
+          <div class="ctmap__canvas" data-ctmap-canvas>
+            <p class="ctmap__fallback">Карта не загрузилась. Список складов и расчёт доставки — слева.</p>
+          </div>
+          <div class="ctmap__sum" aria-live="polite" data-ctmap-sum hidden></div>
+        </div>
+      </div>
+    </div>
+    <form class="filter" action="catalog.html" method="get">
+      <p class="filter__label">Или найди контейнер с этими фильтрами:</p>
+      <div class="filter__row">
+        <div class="select" data-select>
+          <span class="visually-hidden">Тип контейнера</span>
+          <select name="type">
+            <option>Морские контейнеры</option>
+            <option>Рефрижераторные контейнеры</option>
+            <option>Контейнеры Open Top</option>
+            <option>Контейнеры Pallet Wide</option>
+          </select>
+          <span class="ico ico--chev16" aria-hidden="true"></span>
+        </div>
+        <div class="select" data-select>
+          <span class="visually-hidden">Состояние</span>
+          <select name="state">
+            <option>Все состояния</option>
+            <option>Новые</option>
+            <option>1 категория</option>
+            <option>2 категория</option>
+            <option>3 категория</option>
+          </select>
+          <span class="ico ico--chev16" aria-hidden="true"></span>
+        </div>
+        <div class="select" data-select>
+          <span class="visually-hidden">Страна</span>
+          <select name="country">
+            <option>Украина (286)</option>
+          </select>
+          <span class="ico ico--chev16" aria-hidden="true"></span>
+        </div>
+        <div class="select" data-select>
+          <span class="visually-hidden">Город</span>
+          <select name="city">
+            <option>Все города (286)</option>
+            <option>Киев</option>
+            <option>Одесса</option>
+          </select>
+          <span class="ico ico--chev16" aria-hidden="true"></span>
+        </div>
+        <button class="btn btn--lg filter__submit" type="submit">
+          <span class="ico ico--search" aria-hidden="true"></span>Подобрать
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}
+
+{% block content %}
+  <!-- ============ CATALOG ============ -->
+  <section class="section catalog">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Каталог</p>
+        <h2 class="h2">Что мы предлагаем</h2>
+      </div>
+    </div>
+    <div class="catalog__grid">
+      <a class="cat-card cat-card--sea" href="catalog.html">
+        <span class="cat-card__media">
+          <img class="cat-card__img" src="img/cat-sea.webp" width="316" height="182" alt="Морской контейнер 20 футов">
+          <img class="cat-card__ic cat-card__ic--55" src="img/cat-sea-ic.webp" width="60" height="55" alt="">
+        </span>
+        <span class="cat-card__body">
+          <span class="cat-card__titles">
+            <span class="cat-card__title">Морские контейнеры</span>
+            <span class="cat-card__text">Новые и б/у контейнеры 10, 20 и 40 футов.</span>
+          </span>
+          <span class="link-arrow">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></span>
+        </span>
+      </a>
+      <a class="cat-card cat-card--reef" href="catalog-reef.html">
+        <span class="cat-card__media">
+          <img class="cat-card__img" src="img/cat-reef.webp" width="267" height="168" alt="Рефрижераторный контейнер">
+          <img class="cat-card__ic cat-card__ic--55" src="img/cat-sea-ic.webp" width="60" height="55" alt="">
+        </span>
+        <span class="cat-card__body">
+          <span class="cat-card__titles">
+            <span class="cat-card__title">Рефрижераторные контейнеры</span>
+            <span class="cat-card__text">С поддержкой температурного режима.</span>
+          </span>
+          <span class="link-arrow">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></span>
+        </span>
+      </a>
+      <a class="cat-card cat-card--pw" href="catalog-pw.html">
+        <span class="cat-card__media">
+          <img class="cat-card__img" src="img/cat-pw.webp" width="241" height="168" alt="Контейнер Pallet Wide">
+          <img class="cat-card__ic" src="img/cat-pw-ic.webp" width="60" height="60" alt="">
+        </span>
+        <span class="cat-card__body">
+          <span class="cat-card__titles">
+            <span class="cat-card__title">Контейнеры Pallet Wide</span>
+            <span class="cat-card__text">Увеличенная ширина под стандартные европаллеты.</span>
+          </span>
+          <span class="link-arrow">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></span>
+        </span>
+      </a>
+      <a class="cat-card cat-card--ot" href="catalog-ot.html">
+        <span class="cat-card__media">
+          <img class="cat-card__img" src="img/cat-ot.webp" width="244" height="168" alt="Контейнер Open Top">
+          <img class="cat-card__ic" src="img/cat-ot-ic.webp" width="60" height="60" alt="">
+        </span>
+        <span class="cat-card__body">
+          <span class="cat-card__titles">
+            <span class="cat-card__title">Контейнеры Open Top</span>
+            <span class="cat-card__text">Открытый верх для погрузки габаритных грузов сверху.</span>
+          </span>
+          <span class="link-arrow">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></span>
+        </span>
+      </a>
+      <a class="cat-card cat-card--parts" href="catalog-parts.html">
+        <span class="cat-card__media">
+          <img class="cat-card__img" src="img/cat-parts.webp" width="432" height="168" alt="Запчасти для контейнеров">
+          <img class="cat-card__ic" src="img/cat-parts-ic.webp" width="60" height="60" alt="">
+        </span>
+        <span class="cat-card__body">
+          <span class="cat-card__titles">
+            <span class="cat-card__title">Запчасти для контейнеров</span>
+            <span class="cat-card__text">Двери, полы, уплотнители и комплектующие в наличии.</span>
+          </span>
+          <span class="link-arrow">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></span>
+        </span>
+      </a>
+      <a class="cat-card cat-card--rent" href="catalog-rent.html">
+        <span class="cat-card__media">
+          <img class="cat-card__img" src="img/cat-rent.webp" width="178" height="168" alt="Аренда контейнеров">
+          <img class="cat-card__ic" src="img/cat-rent-ic.webp" width="60" height="60" alt="">
+        </span>
+        <span class="cat-card__body">
+          <span class="cat-card__titles">
+            <span class="cat-card__title">Аренда контейнеров</span>
+            <span class="cat-card__text">Посуточная и долгосрочная аренда под ваши задачи.</span>
+          </span>
+          <span class="link-arrow">Смотреть<span class="ico ico--arrow" aria-hidden="true"></span></span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ POPULAR ============ -->
+  <section class="section popular">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">В наличии</p>
+        <h2 class="h2">Популярные предложения</h2>
+      </div>
+      <a class="link-arrow sec-head__link" href="catalog.html">Все товары{{ ico('arrow') }}</a>
+    </div>
+    <div class="popular__body">
+      <ul class="prod-list">
+        {%- for p in popular %}{{ prod(p) }}{% endfor %}
+      </ul>
+      <button class="btn-more" type="button">Показать ещё 82 товара</button>
+      <a class="link-arrow popular__all" href="catalog.html">Все товары{{ ico('arrow') }}</a>
+    </div>
+  </section>
+
+  <!-- ============ NEW ARRIVALS ============ -->
+  <section class="section novelty">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Только что поступили</p>
+        <h2 class="h2">Новинки</h2>
+      </div>
+    </div>
+    {{ nslider(novelty) }}
+  </section>
+
+  <!-- ============ PARTNERS ============ -->
+  <section class="section partners">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">более 140 компаний по миру</p>
+        <h2 class="h2">Партнёры и клиенты</h2>
+      </div>
+    </div>
+    <div class="slider slider--partners" data-slider="partners">
+      <div class="swiper partners__slider">
+      <ul class="partners__grid swiper-wrapper">
+        <li class="partners__cell swiper-slide"><img class="partners__logo partners__logo--maersk" src="img/p-maersk.webp" width="160" height="38" alt="Maersk Line" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-gol.webp" width="125" height="65" alt="Global Ocean Link" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo partners__logo--udai" src="img/p-udai.webp" width="54" height="65" alt="Удай" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-dtek.webp" width="125" height="65" alt="ДТЭК" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-port.webp" width="125" height="65" alt="Бруклин-Киев Порт" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-unilaman.webp" width="125" height="65" alt="Uni-Laman Group" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-bat.webp" width="125" height="65" alt="British American Tobacco Ukraine" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-hrs.webp" width="125" height="65" alt="ГПК Україна" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-interatletika.webp" width="125" height="65" alt="InterAtletika" loading="lazy"></li>
+        <li class="partners__cell swiper-slide"><img class="partners__logo" src="img/p-zim.webp" width="125" height="65" alt="ZIM" loading="lazy"></li>
+      </ul>
+      </div>
+      <div class="dots" data-dots></div>
+    </div>
+  </section>
+
+{% include 'faq.html' %}
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="section reviews">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Что о нас думают</p>
+        <h2 class="h2">Последние отзывы</h2>
+      </div>
+      <a class="link-arrow sec-head__link" href="reviews.html">Все отзывы<span class="ico ico--arrow" aria-hidden="true"></span></a>
+    </div>
+    <div class="slider slider--cards" data-slider="cards">
+      <div class="swiper">
+      <div class="cards swiper-wrapper">
+        <div class="card swiper-slide">
+          <img class="card__img" src="img/rev-1.webp" width="388" height="200" alt="Контейнер клиента" loading="lazy">
+          <div class="card__body">
+            <div class="stars" role="img" aria-label="Оценка 5 из 5"><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="card__title">Качественный сервис и нормальные цены, рекомендую всем, кому нужен надежный контейнер.</p>
+            <div class="card__foot"><span class="card__name">Максим</span><time class="card__date" datetime="2026-04-13">13.04.2026</time></div>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <img class="card__img" src="img/rev-2.webp" width="388" height="200" alt="Контейнер клиента" loading="lazy">
+          <div class="card__body">
+            <div class="stars" role="img" aria-label="Оценка 5 из 5"><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="card__title">Состояние б/у контейнера оказалось даже лучше, чем мы ожидали, спасибо за честную консультацию</p>
+            <div class="card__foot"><span class="card__name">Татьяна</span><time class="card__date" datetime="2025-10-03">03.10.2025</time></div>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <img class="card__img" src="img/rev-3.webp" width="388" height="200" alt="Контейнер клиента" loading="lazy">
+          <div class="card__body">
+            <div class="stars" role="img" aria-label="Оценка 5 из 5"><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="card__title">отлично!</p>
+            <div class="card__foot"><span class="card__name">Александр</span><time class="card__date" datetime="2025-02-24">24.02.2025</time></div>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <img class="card__img" src="img/rev-4.webp" width="388" height="200" alt="Контейнер клиента" loading="lazy">
+          <div class="card__body">
+            <div class="stars" role="img" aria-label="Оценка 5 из 5"><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="card__title">Выручили с срочной доставкой контейнера на площадку, очень надежная компания.</p>
+            <div class="card__foot"><span class="card__name">Роман</span><time class="card__date" datetime="2025-02-08">08.02.2025</time></div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="dots" data-dots></div>
+    </div>
+    <a class="link-arrow sec-link-m" href="reviews.html">Все отзывы<span class="ico ico--arrow" aria-hidden="true"></span></a>
+  </section>
+
+  <!-- ============ BLOG ============ -->
+  <section class="section blog">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Блог</p>
+        <h2 class="h2">Полезные статьи</h2>
+      </div>
+      <a class="link-arrow sec-head__link" href="blog.html">Все статьи<span class="ico ico--arrow" aria-hidden="true"></span></a>
+    </div>
+    <div class="slider slider--cards" data-slider="cards">
+      <div class="swiper">
+      <div class="cards swiper-wrapper">
+        <a class="card card--post swiper-slide" href="blog-article.html">
+          <span class="card__media"><img class="card__img" src="img/blog-1.webp" width="388" height="200" alt="" loading="lazy"></span>
+          <span class="card__body">
+            <span class="card__post-head"><time class="card__date" datetime="2026-07-22">22.07.2026</time><span class="card__title">Контейнер на участке: недвижимость или нет? Юридические тонкости установки в Украине</span></span>
+            <span class="link-arrow">Читать<span class="ico ico--arrow" aria-hidden="true"></span></span>
+          </span>
+        </a>
+        <a class="card card--post swiper-slide" href="blog-article.html">
+          <span class="card__media"><img class="card__img" src="img/blog-2.webp" width="388" height="200" alt="" loading="lazy"></span>
+          <span class="card__body">
+            <span class="card__post-head"><time class="card__date" datetime="2026-05-17">17.05.2026</time><span class="card__title">Полное руководство по танк-контейнерам</span></span>
+            <span class="link-arrow">Читать<span class="ico ico--arrow" aria-hidden="true"></span></span>
+          </span>
+        </a>
+        <a class="card card--post swiper-slide" href="blog-article.html">
+          <span class="card__media"><img class="card__img" src="img/blog-3.webp" width="388" height="200" alt="" loading="lazy"></span>
+          <span class="card__body">
+            <span class="card__post-head"><time class="card__date" datetime="2026-03-21">21.03.2026</time><span class="card__title">Использование морских контейнеров при чрезвычайных ситуациях</span></span>
+            <span class="link-arrow">Читать<span class="ico ico--arrow" aria-hidden="true"></span></span>
+          </span>
+        </a>
+        <a class="card card--post swiper-slide" href="blog-article.html">
+          <span class="card__media"><img class="card__img" src="img/blog-4.webp" width="388" height="200" alt="" loading="lazy"></span>
+          <span class="card__body">
+            <span class="card__post-head"><time class="card__date" datetime="2026-01-02">02.01.2026</time><span class="card__title">3 совета по транспортировке морских контейнеров</span></span>
+            <span class="link-arrow">Читать<span class="ico ico--arrow" aria-hidden="true"></span></span>
+          </span>
+        </a>
+      </div>
+      </div>
+      <div class="dots" data-dots></div>
+    </div>
+    <a class="link-arrow sec-link-m" href="blog.html">Все статьи<span class="ico ico--arrow" aria-hidden="true"></span></a>
+  </section>
+
+{% include 'seo.html' %}
+
+  
+{% endblock %}

@@ -1,0 +1,276 @@
+@use "variables" as *;
+// =========================================================
+// Каталог: первый экран категории, фильтр, сортировка, список
+// =========================================================
+
+// ---------- Первый экран категории ----------
+// Цвет фона и место картинки задаются на блоке через переменные:
+// --bg, --x/--y/--w/--h (десктоп), --mx/--my/--mw/--mh (мобильный)
+.cat-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  height: 560px;
+  overflow: hidden;                 // без isolation: иначе шапка с меню под затемнением
+  background: linear-gradient(180deg, rgba(16, 26, 43, 0) 40%, rgba(0, 0, 0, .4) 100%), var(--bg, #c0e2df);
+  color: #fff;
+
+  &__media {
+    position: absolute;
+    top: 84px;
+    right: 0;
+    z-index: 0;
+    width: 760px;
+    height: 476px;
+    transform-origin: 100% 60%;
+    pointer-events: none;
+  }
+  &__media img {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    height: var(--h);
+    max-width: none;
+  }
+
+  &__content { position: relative; z-index: 1; padding: 40px; }
+  &__text { max-width: 960px; display: flex; flex-direction: column; gap: 12px; }
+  &__ic { width: 60px; height: 60px; object-fit: contain; }
+  &__ic--55 { height: 55px; }
+  &__title { @include t(48px, 60px, 800); color: #fff; }
+  &__lead { @include t(20px, 25px); }
+  &__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  &__btns .btn { height: 44px; padding: 12px 24px; }
+
+  @include xl { &__text { max-width: calc(100% - 640px); } }
+  @include lg { &__media { transform: scale(.8); } }
+  @include md {
+    &__media { transform: scale(.66); }
+    &__text { max-width: calc(100% - 420px); }
+  }
+
+  @include mob {
+    height: 640px;
+    gap: 20px;
+
+    &__media { top: 89px; right: auto; left: 50%; width: 390px; height: 260px; margin-left: -195px; transform: none; }
+    &__media img { left: var(--mx); top: var(--my); width: var(--mw); height: var(--mh); }
+    &__content { padding: 24px 16px; }
+    &__text { max-width: none; }
+    &__title { @include t(32px, 36px, 800); }
+    &__lead { @include t(16px, 20px); }
+    &__btns { flex-wrap: nowrap; gap: 8px; padding-right: 10px; }
+    &__btns .btn { height: 36px; padding: 12px 8px; }
+    &__btns .btn:first-child { flex: 1 1 auto; }
+  }
+}
+
+// ---------- Раскладка: фильтр + список ----------
+.catalog-body {
+  flex-direction: row;
+  align-items: flex-start;
+
+  &__main { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+
+  @include md { flex-direction: column; align-items: stretch; gap: 12px; }
+  @include mob { &__main { gap: 16px; } }
+}
+
+// ---------- Сортировка ----------
+.sort {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  @include t(16px, 20px);
+  color: $ink;
+
+  &__link {
+    color: $gray;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color .2s;
+    &:hover { color: $blue; }
+    &.is-active { color: $ink; text-decoration: none; cursor: default; }
+  }
+
+  @include mob { gap: 4px 12px; @include t(14px, 18px); }
+}
+
+// ---------- Фильтр ----------
+.filters {
+  position: relative;
+  flex: none;
+  width: 320px;
+  padding-top: 40px;
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+    border-radius: 16px;
+    background: $field;
+  }
+  &__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  &__title { @include t(20px, 25px, 500); color: $ink; }
+  &__toggle {
+    display: none;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #fff;
+    color: $blue;
+    .ico--minus { display: none; }
+  }
+  &__body { display: contents; }
+  &__foot { display: none; align-items: center; gap: 24px; }
+  &__reset { @include t(14px, 18px, 500); color: $blue; transition: color .2s; &:hover { color: $link; } }
+  &__foot .btn { flex: 1 1 auto; }
+
+  // Планшет и мобильный: свёрнутая плашка, по «+» — панель поверх списка
+  @include md {
+    width: auto;
+    padding-top: 0;
+
+    &__panel { gap: 20px; padding: 8px 12px; border-radius: 8px; }
+    &__title { @include t(16px, 20px, 500); }
+    &__toggle { display: flex; }
+    &__body { display: none; }
+
+    &.is-open &__panel {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      z-index: 20;
+      padding: 12px 16px 16px;
+      border-radius: 20px;
+      box-shadow: inset 0 0 0 1px rgba(16, 22, 31, .06), $shadow-drop;
+    }
+    &.is-open &__body { display: contents; }
+    &.is-open &__foot { display: flex; }
+    &.is-open &__toggle .ico--plus { display: none; }
+    &.is-open &__toggle .ico--minus { display: block; }
+  }
+}
+
+// Выбранные значения
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  &:empty { display: none; }
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 4px 5px 4px 8px;
+  border-radius: 200px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px $line;
+  @include t(14px, 18px);
+  color: $muted;
+
+  &__x {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: $line;
+    color: $muted;
+    transition: background-color .2s, color .2s;
+  }
+  &__x:hover { background: $blue; color: #fff; }
+}
+
+// Группа фильтра
+.fgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    @include t(16px, 20px, 500);
+    color: $ink;
+    text-align: left;
+  }
+  &__name { flex: 1 1 0; min-width: 0; }
+  &__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: $blue;
+    @include t(11px, 14px, 500);
+    color: #fff;
+  }
+  &__head .ico { color: $muted; transition: transform .2s; }
+  &.is-open &__head .ico { transform: scaleY(-1); }
+  &__head:hover { color: $blue; }
+
+  &__list { display: none; flex-direction: column; gap: 16px; }
+  &.is-open &__list { display: flex; }
+}
+
+// Чекбокс
+.check {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  &__box {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px $line;
+    color: #fff;
+    transition: background-color .15s, box-shadow .15s;
+    .ico { opacity: 0; }
+  }
+  input:checked + &__box { background: $blue; box-shadow: none; .ico { opacity: 1; } }
+  input:focus-visible + &__box { outline: 2px solid $blue; outline-offset: 2px; }
+  &:hover &__box { box-shadow: inset 0 0 0 1px $blue; }
+  &__label { flex: 1 1 0; min-width: 0; @include t(16px, 20px); color: $ink; }
+  &__count { flex: none; @include t(12px, 15px); color: $muted; }
+}
+
+fieldset.fgroup { min-width: 0; margin: 0; padding: 0; border: 0; }
+.fgroup.is-open .fgroup__badge { display: none; }
+
+// ---------- Результаты поиска ----------
+.results {
+  &__title { @include t(48px, 60px, 800); color: $ink; }
+  &__count { @include t(20px, 25px); color: $ink; }
+  &__body { display: flex; flex-direction: column; gap: 20px; }
+
+  @include mob {
+    gap: 24px;
+    &__title { @include t(28px, 32px, 800); }
+    &__body { gap: 16px; }
+  }
+}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, page_hero, pcard, trow with context %}
+{% block top %}
+{{ page_hero('hero-article', hero[1], hero[2], date=hero[0]) }}
+{% endblock %}
+{% macro ul(items) %}<ul>{% for li in items %}
+            <li>{{ li }}</li>{% endfor %}
+          </ul>{% endmacro %}
+{% block content %}
+  <!-- ============ СТАТЬЯ ============ -->
+  <article class="section article">
+    <section class="article__block">
+      <h2 class="article__h2">{{ a.s1.h2 }}</h2>
+      <div class="article__body">
+        <p class="article__intro">{{ a.s1.intro }}</p>
+        {{ ul(a.s1.list) }}
+      </div>
+    </section>
+
+    <section class="article__block article__block--lg">
+      <h2 class="article__h2">{{ a.s2.h2 }}</h2>
+      {%- for it in a.s2['items'] %}
+      <div class="article__block">
+        <img class="article__img" src="img/{{ it.img }}.webp" width="600" height="400" alt="{{ it.h3 }}" loading="lazy">
+        <h3 class="article__h3 article__h3--num"><span class="article__num">{{ loop.index }}.</span>{{ it.h3 }}</h3>
+        <div class="article__body">
+          <p class="article__intro">{{ it.intro }}</p>
+          {{ ul(it.list) }}
+        </div>
+      </div>
+      {%- endfor %}
+    </section>
+
+    <section class="article__block">
+      <h2 class="article__h2">{{ a.table.h2 }}</h2>
+      <div class="table">
+        {%- for r in a.table.rows %}{{ trow(r) }}{% endfor %}
+      </div>
+    </section>
+
+    <section class="article__block">
+      <h2 class="article__h2">{{ a.summary.h2 }}</h2>
+      {{ ul(a.summary.list) }}
+    </section>
+
+    <div class="article__share">
+      <span>Поделитесь статьей</span>
+      <div class="article__share-list">
+        <a href="#" aria-label="Telegram"><img src="img/icons/s-telegram-app.svg" width="32" height="32" alt=""></a>
+        <a href="#" aria-label="Instagram"><img src="img/icons/s-instagram.svg" width="32" height="32" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="img/icons/s-linkedin.svg" width="32" height="32" alt=""></a>
+        <a href="#" aria-label="Facebook"><img src="img/icons/s-facebook.svg" width="32" height="32" alt=""></a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ ЧИТАЙТЕ ТАКЖЕ ============ -->
+  <section class="section blog">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <h2 class="h2">Читайте также</h2>
+      </div>
+      <a class="link-arrow sec-head__link" href="blog.html">Все статьи{{ ico('arrow') }}</a>
+    </div>
+    <div class="slider slider--cards" data-slider="cards">
+      <div class="swiper">
+      <div class="cards swiper-wrapper">
+        {%- for p in posts[:4] %}{{ pcard(p, ' swiper-slide') }}{% endfor %}
+      </div>
+      </div>
+      <div class="dots" data-dots></div>
+    </div>
+    <a class="link-arrow sec-link-m" href="blog.html">Все статьи{{ ico('arrow') }}</a>
+  </section>
+{% endblock %}

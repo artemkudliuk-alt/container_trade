@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, prod, nslider with context %}
+{% block top %}
+  <!-- ============ ПЕРВЫЙ ЭКРАН КАТЕГОРИИ ============ -->
+  <section class="cat-hero" style="--bg: {{ h.bg }}; --x: {{ h.d[0] }}px; --y: {{ h.d[1] }}px; --w: {{ h.d[2] }}px; --h: {{ h.d[3] }}px; --mx: {{ h.m[0] }}px; --my: {{ h.m[1] }}px; --mw: {{ h.m[2] }}px; --mh: {{ h.m[3] }}px">
+    <div class="cat-hero__media">
+      <picture>
+        <source media="(max-width: 1023px)" srcset="img/cat-hero-{{ key }}-m.webp">
+        <img src="img/cat-hero-{{ key }}.webp" width="{{ h.d[2] }}" height="{{ h.d[3] }}" alt="{{ h.title }}">
+      </picture>
+    </div>
+{% include 'header.html' %}
+    <div class="cat-hero__content">
+      <div class="cat-hero__text">
+        <img class="cat-hero__ic{% if h.ich == 55 %} cat-hero__ic--55{% endif %}" src="img/{{ h.ic }}.webp" width="60" height="{{ h.ich }}" alt="">
+        <h1 class="cat-hero__title">{{ h.title }}</h1>
+        <p class="cat-hero__lead">{{ h.lead }}</p>
+        <div class="cat-hero__btns">
+          {%- if h.btns|length == 2 %}
+          <a class="btn" href="price.html">{{ h.btns[0] }}</a>
+          <a class="btn btn--ghost" href="sizes.html">{{ h.btns[1] }}</a>
+          {%- else %}
+          <button class="btn" type="button" data-modal-open="feedback">{{ h.btns[0] }}</button>
+          {%- endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <!-- ============ ФИЛЬТР + ТОВАРЫ ============ -->
+  <section class="section catalog-body" aria-label="Товары">
+    <aside class="filters" data-filters>
+      <form class="filters__panel" action="#" method="get">
+        <div class="filters__head">
+          <h2 class="filters__title">Подбор по параметрам</h2>
+          <button class="filters__toggle" type="button" aria-expanded="false" aria-label="Показать фильтр" data-filters-toggle>{{ ico('plus') }}{{ ico('minus') }}</button>
+        </div>
+        <div class="filters__body">
+          <div class="chips" data-chips>
+            {%- for c in chips %}
+            <span class="chip" data-chip="{{ c[1] }}">{{ c[0] }}<button class="chip__x" type="button" aria-label="Убрать «{{ c[0] }}»">{{ ico('chipx') }}</button></span>
+            {%- endfor %}
+          </div>
+          {%- for g in groups %}{% set gi = loop.index %}
+          <fieldset class="fgroup{% if g.open %} is-open{% endif %}" data-fgroup>
+            <legend class="visually-hidden">{{ g.name }}</legend>
+            <button class="fgroup__head" type="button" aria-expanded="{{ 'true' if g.open else 'false' }}">
+              <span class="fgroup__name">{{ g.name }}</span>
+              <span class="fgroup__badge" data-badge{% if g.open or not g.badge %} hidden{% endif %}>{{ g.badge or '' }}</span>
+              {{ ico('chevfl') }}
+            </button>
+            <div class="fgroup__list">
+              {%- for it in g['items'] %}
+              <label class="check">
+                <input type="checkbox" name="f{{ gi }}" value="{{ loop.index }}" id="f{{ gi }}-{{ loop.index }}"{% if it[2] %} checked{% endif %}>
+                <span class="check__box">{{ ico('cb') }}</span>
+                <span class="check__label">{{ it[0] }}</span>
+                <span class="check__count">{{ it[1] }}</span>
+              </label>
+              {%- endfor %}
+            </div>
+          </fieldset>
+          {%- endfor %}
+          <div class="filters__foot">
+            <button class="filters__reset" type="button">Сбросить</button>
+            <button class="btn" type="submit">Показать товары</button>
+          </div>
+        </div>
+      </form>
+    </aside>
+
+    <div class="catalog-body__main">
+      <div class="sort" data-sort>
+        <span>Показывать сначала:</span>
+        <a class="sort__link is-active" href="#" aria-current="true">Дешевые</a>
+        <a class="sort__link" href="#">Дорогие</a>
+        <a class="sort__link" href="#">Новые</a>
+      </div>
+      <ul class="prod-list">
+        {%- for p in catalog %}{{ prod(p) }}{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ВАС МОЖЕТ ЗАИНТЕРЕСОВАТЬ ============ -->
+  <section class="section novelty">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Только что поступили</p>
+        <h2 class="h2">Также, Вас может заинтересовать</h2>
+      </div>
+    </div>
+    {{ nslider(novelty) }}
+  </section>
+
+{% include 'seo.html' %}
+{% endblock %}

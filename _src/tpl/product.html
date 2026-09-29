@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, nslider with context %}
+{% set p = product %}
+
+{% macro crumbs(cls) %}
+      <nav class="bc {{ cls }}" aria-label="Навигационная цепочка">
+        <a href="index.html">Главная</a>{{ ico('bc') }}<a href="catalog.html">Морские контейнеры</a>{{ ico('bc') }}<span aria-current="page">{{ p.name }}</span>
+      </nav>
+{%- endmacro %}
+
+{% macro qty(cls='') %}
+          <div class="qty{{ cls }}" data-qty>
+            <button class="qty__btn qty__btn--minus" type="button" aria-label="Уменьшить" disabled data-qty-minus></button>
+            <input class="qty__val" type="text" inputmode="numeric" value="1" aria-label="Количество" data-qty-val>
+            <button class="qty__btn qty__btn--plus" type="button" aria-label="Увеличить" data-qty-plus></button>
+          </div>
+{%- endmacro %}
+
+{% block top %}
+  <div class="top top--plain">
+{% include 'header.html' %}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <!-- ============ ТОВАР ============ -->
+  <div class="pd">
+    <!-- Галерея -->
+    <section class="section pd__gallery" aria-label="Фото товара" data-gallery>
+{{ crumbs('bc--m') }}
+      <button class="pd__main" type="button" aria-label="Открыть фото на весь экран" data-lb-open>
+        <img class="pd__main-img" src="img/{{ p.imgs[0] }}.webp" width="776" height="518" alt="{{ p.name }}" data-gallery-main>
+      </button>
+      <div class="pd__thumbs-wrap">
+        <button class="pd__arrow pd__arrow--prev" type="button" aria-label="Предыдущее фото" data-gallery-prev>{{ ico('pg') }}</button>
+        <div class="pd__thumbs">
+          {%- for im in p.imgs %}
+          <button class="pd__thumb{% if loop.first %} is-active{% endif %}" type="button" aria-label="Фото {{ loop.index }}" data-src="img/{{ im }}.webp">
+            <img src="img/{{ im }}-t.webp" width="185" height="125" alt="" loading="lazy">
+          </button>
+          {%- endfor %}
+        </div>
+        <button class="pd__arrow pd__arrow--next" type="button" aria-label="Следующее фото" data-gallery-next>{{ ico('pg') }}</button>
+      </div>
+
+      <!-- Просмотр фото на весь экран -->
+      <dialog class="lightbox" aria-label="Фото товара" data-lightbox>
+        <figure class="lightbox__stage" data-lb-stage>
+          <img class="lightbox__img" src="img/{{ p.imgs[0] }}.webp" width="1552" height="1036" alt="{{ p.name }}" data-lb-img>
+        </figure>
+        <button class="lightbox__close" type="button" aria-label="Закрыть" data-lb-close>{{ ico('x') }}</button>
+        <button class="pd__arrow lightbox__arrow lightbox__arrow--prev" type="button" aria-label="Предыдущее фото" data-lb-prev>{{ ico('pg') }}</button>
+        <button class="pd__arrow lightbox__arrow lightbox__arrow--next" type="button" aria-label="Следующее фото" data-lb-next>{{ ico('pg') }}</button>
+        <p class="lightbox__count" aria-live="polite" data-lb-count></p>
+      </dialog>
+    </section>
+
+    <div class="pd__col">
+      <!-- Основная информация и покупка -->
+      <section class="section pd__info" data-pd-buy>
+{{ crumbs('bc--d') }}
+        <div class="pd__head">
+          <h1 class="pd__title">{{ p.name }}</h1>
+          <ul class="pd__tags">
+            <li class="tag tag--cond {{ p.cond[0] }}">{{ p.cond[1] }}<button class="tag__info" type="button" aria-label="{{ p.cond[2] }}" data-tip="{{ p.cond[2] }}">{{ ico('info') }}</button></li>
+            <li class="tag"><img src="img/icons/{{ p.type[0] }}.svg" width="24" height="24" alt="">{{ p.type[1] }}</li>
+            <li class="tag tag--stock">{{ ico('check') }}{{ p.stock }}</li>
+            <li class="tag tag--place">{{ ico('pin') }}{{ p.place }}</li>
+            <li class="tag tag--model">{{ ico('model') }}{{ p.model }}</li>
+          </ul>
+        </div>
+        <div class="pd__buy">
+          <p class="pd__price">{{ p.price }}</p>
+{{ qty() }}
+          <button class="btn pd__cart" type="button" data-modal-open="cart">В корзину</button>
+        </div>
+        <div class="pd__fast">
+          <form class="oneclick" action="#" method="post" data-oneclick>
+            <label class="visually-hidden" for="oneclick-phone">Телефон</label>
+            <input class="oneclick__input" id="oneclick-phone" type="tel" name="phone" value="+38" autocomplete="tel">
+            <button class="oneclick__btn" type="submit">Заказать в 1 клик</button>
+          </form>
+          <button class="btn btn--outline pd__ask" type="button" data-modal-open="feedback">Задать вопрос</button>
+        </div>
+      </section>
+
+      <!-- Параметры -->
+      <section class="section pd__block pd__params" data-params>
+        <h2 class="pd__h2">Параметры контейнера</h2>
+        <div class="pd__groups">
+          {%- for g in p.params + p.params_more %}
+          <div class="pgroup"{% if loop.index > p.params|length %} hidden data-params-more{% endif %}>
+            <h3 class="pgroup__title">{{ g[0] }}</h3>
+            <dl class="ptable">
+              {%- for r in g[1] %}
+              <div class="ptable__row"><dt>{{ r[0] }}</dt><dd>{{ r[1] }}</dd></div>
+              {%- endfor %}
+            </dl>
+          </div>
+          {%- endfor %}
+        </div>
+        <button class="link-arrow pd__more" type="button" aria-expanded="false" data-params-toggle><span>Показать все параметры</span>{{ ico('arrow') }}</button>
+      </section>
+
+      <!-- Доставка -->
+      <section class="section pd__block">
+        <h2 class="pd__h2">Доставка</h2>
+        <p class="pd__text">{{ p.delivery }}</p>
+        <a class="link-arrow" href="#">Рассчитать стоимость доставки{{ ico('arrow') }}</a>
+      </section>
+
+      <!-- Описание -->
+      <section class="section pd__block">
+        <h2 class="pd__h2">Описание товара</h2>
+        <div class="pd__desc">
+          {%- for t in p.desc %}
+          <p class="pd__text">{{ t }}</p>
+          {%- endfor %}
+        </div>
+        <div class="pd__pros">
+          <h3 class="pgroup__title">Преимущества</h3>
+          <ul class="pd__list">
+            {%- for t in p.pros %}
+            <li>{{ t }}</li>
+            {%- endfor %}
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ ВАС МОЖЕТ ЗАИНТЕРЕСОВАТЬ ============ -->
+  <section class="section novelty">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Только что поступили</p>
+        <h2 class="h2">Также, Вас может заинтересовать</h2>
+      </div>
+    </div>
+    {{ nslider(novelty) }}
+  </section>
+
+  <!-- ============ ПРОСМОТРЕННЫЕ ============ -->
+  <section class="section novelty">
+    <div class="sec-head">
+      <div class="sec-head__titles">
+        <p class="eyebrow">Продолжите выбор</p>
+        <h2 class="h2">Просмотренные товары</h2>
+      </div>
+    </div>
+    {{ nslider(viewed) }}
+  </section>
+
+  <!-- Плавающая панель покупки (появляется, когда основная уходит из вида) -->
+  <div class="pd-bar" inert data-pd-bar>
+    <img class="pd-bar__img" src="img/{{ p.thumb }}.webp" width="72" height="72" alt="">
+    <div class="pd-bar__titles">
+      <span class="prod__code">{{ p.code }}</span>
+      <span class="pd-bar__name">{{ p.name }}</span>
+    </div>
+    <ul class="pd__tags pd-bar__tags">
+      <li class="tag tag--cond {{ p.cond[0] }}">{{ p.cond[1] }}<span class="tag__info">{{ ico('info') }}</span></li>
+      <li class="tag"><img src="img/icons/{{ p.type[0] }}.svg" width="24" height="24" alt="">{{ p.type[1] }}</li>
+      <li class="tag tag--stock">{{ ico('check') }}{{ p.stock }}</li>
+      <li class="tag tag--place">{{ ico('pin') }}{{ p.place }}</li>
+    </ul>
+    <div class="pd-bar__buy">
+      <span class="pd-bar__price">{{ p.price }}</span>
+{{ qty(' qty--bar') }}
+      <button class="btn pd-bar__cart" type="button" data-modal-open="cart">В корзину</button>
+    </div>
+  </div>
+{% endblock %}

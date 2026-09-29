@@ -1,0 +1,171 @@
+@use "variables" as *;
+// =========================================================
+// Первый экран + карта + фильтр
+// =========================================================
+.top { position: relative; }
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  height: 800px;
+  background:
+    linear-gradient(180deg, rgba(16, 26, 43, 0) 40%, #000 100%),
+    #1b2536 url("../img/hero.webp") center / cover no-repeat;
+  color: #fff;
+
+  &__content { display: flex; align-items: flex-start; gap: 12px; padding: 40px; }
+  &__text { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  &__title { @include t(48px, 60px, 800); color: #fff; }
+  &__lead { @include t(20px, 25px); }
+
+  @include md {
+    height: auto;
+    min-height: 720px;
+    &__content { flex-direction: column; gap: 24px; }
+  }
+  @include mob {
+    height: 640px;
+    min-height: 0;
+    gap: 20px;
+    &__content { gap: 20px; padding: 24px 16px; }
+    &__title { @include t(32px, 36px, 800); }
+    &__lead { @include t(16px, 20px); }
+  }
+}
+
+// Преимущества: вертикальная лента, смена раз в 2 секунды
+.ticker {
+  flex: none;
+  width: 500px;
+  height: 48px;
+  overflow: hidden;
+
+  &__list { transition: transform .6s cubic-bezier(.65, 0, .35, 1); }
+  &__item { display: flex; align-items: center; gap: 12px; height: 48px; }
+  &__ic {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .12);
+  }
+  &__body { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  &__title { @include t(16px, 20px, 500); }
+  &__text { @include t(14px, 18px); }
+
+  @include md { width: 100%; max-width: 500px; }
+  @include mob {
+    height: 60px;
+    max-width: none;
+    &__item { height: 60px; }
+  }
+}
+
+// ---------- Карта наличия (_ctmap.scss) и фильтр ----------
+.finder {
+  border-radius: 0 0 28px 28px;
+  background: $panel;
+
+  @include mob { border-radius: 0 0 20px 20px; }
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 40px 40px;
+
+  &__label { @include t(12px, 15px, 500); @include caps; color: $muted; }
+  &__row { display: flex; gap: 8px; }
+  &__submit { flex: none; width: 162px; }
+
+  @include md {
+    &__row { display: grid; grid-template-columns: 1fr 1fr; }
+    &__submit { width: auto; grid-column: 1 / -1; }
+  }
+  @include mob {
+    gap: 8px;
+    padding: 16px;
+    &__row { display: flex; flex-direction: column; gap: 8px; }
+  }
+}
+
+// ---------- Выпадающий список ----------
+// Без JS работает нативный <select>; с JS (.is-enhanced) он скрыт, а форма
+// по-прежнему отправляет его значение — удобно для OpenCart
+.select {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: block;
+  height: 44px;
+
+  select, &__btn {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 12px 44px 12px 16px;
+    border: 1px solid $line;
+    border-radius: 8px;
+    background: $field;
+    @include t(14px, 18px, 500);
+    color: $ink;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    appearance: none;
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s;
+
+    &:hover { background: $field-hover; border-color: #d3d9e2; }
+  }
+  &.is-open &__btn { border-color: $blue; background: #fff; }
+  &.is-enhanced select { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+
+  > .ico { position: absolute; right: 16px; top: 14px; color: $muted; pointer-events: none; transition: transform .2s; }
+  &.is-open > .ico { transform: rotate(180deg); color: $blue; }
+
+  &__list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid $line;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: $shadow-drop;
+    overscroll-behavior: contain;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .15s, transform .15s, visibility 0s .15s;
+  }
+  &.is-up &__list { top: auto; bottom: calc(100% + 4px); transform: translateY(4px); }
+  &.is-open &__list { visibility: visible; opacity: 1; transform: none; transition: opacity .15s, transform .15s; }
+
+  &__opt {
+    padding: 10px 12px;
+    border-radius: 6px;
+    @include t(14px, 18px, 500);
+    color: $ink;
+    cursor: pointer;
+    transition: background-color .15s, color .15s;
+
+    &.is-active { background: $field; }
+    &[aria-selected="true"] { color: $blue; }
+  }
+
+  @include mob { flex: none; }
+}

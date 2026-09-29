@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import ico, page_hero with context %}
+{# Карта сайта и карта товаров: одна разметка, группы колонками #}
+{% block top %}
+{{ page_hero(img, h1, lead) }}
+{% endblock %}
+{% block content %}
+  {#- OpenCart: groups — категории (information/sitemap), товары — product/product из базы #}
+  <section class="section smap{% if wide %} smap--wide{% endif %}" aria-label="{{ h1 }}">
+    {%- for group, links in groups %}
+    <div class="smap__group">
+      <h2 class="smap__title">{{ group }}</h2>
+      <ul class="smap__list">
+        {%- for name, href, subs in links %}
+        <li><a href="{{ href }}">{{ name }}</a>
+          {%- if subs %}
+          <ul class="smap__sub">
+            {%- for s_name, s_href in subs %}<li><a href="{{ s_href }}">{{ s_name }}</a></li>{% endfor %}
+          </ul>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endfor %}
+  </section>
+{% endblock %}

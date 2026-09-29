@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import page_hero, trow with context %}
+{% block top %}
+{{ page_hero('hero-price', hero[0], hero[1]) }}
+{% endblock %}
+{% block content %}
+{%- for b in price %}
+  <!-- ============ {{ b.title|upper }} ============ -->
+  <section class="section price-block">
+    <h2 class="h2">{{ b.title }}</h2>
+    <p class="price-block__lead">{{ b.lead }}</p>
+    <div class="table table--price">
+      {%- for r in b.rows %}{{ trow([r[0]|replace('\\', '/'), r[1]|replace('-', '-<wbr>')|replace(' у.е.', '&nbsp;у.е.')], 'Смотреть') }}{% endfor %}
+    </div>
+  </section>
+{% endfor %}
+{% endblock %}

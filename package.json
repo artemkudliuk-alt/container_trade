@@ -1,0 +1,17 @@
+{
+  "name": "container-trade-markup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Вёрстка Container Trade (HTML/SCSS/jQuery) под OpenCart 4",
+  "scripts": {
+    "icons": "node tools/build-icons.js",
+    "css": "sass scss/style.scss css/style.css --no-source-map --style=expanded",
+    "css:min": "sass scss/style.scss css/style.min.css --no-source-map --style=compressed",
+    "html": "python _src/build.py",
+    "build": "npm run icons && npm run html && npm run css && npm run css:min",
+    "watch": "sass --watch scss/style.scss:css/style.css --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}

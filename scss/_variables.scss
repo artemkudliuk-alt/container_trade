@@ -1,0 +1,49 @@
+// =========================================================
+// Переменные и миксины
+// =========================================================
+
+// Цвета из макета
+$blue: #31a6dd;
+$blue-hover: #1f8fc5;
+$blue-active: #1d92c9;
+$link: #1f6feb;
+$ink: #10161f;
+$muted: #5b6675;
+$gray: #909aa8;
+$line: #dde3ec;
+$field: #f2f5fa;
+$field-hover: #e4e7eb;
+$page: #e8f1ff;
+$panel: rgba(255, 255, 255, .94);
+$dark: #101a2b;
+$green: #00c056;
+$req: #c05d00;
+$icon-bg: #eaf2ff;
+
+$shadow: 0 8px 24px rgba(0, 59, 150, .12);
+$shadow-drop: 0 8px 24px rgba(16, 22, 31, .16);
+$shadow-panel: 0 8px 24px rgba(16, 22, 31, .12);
+$overlay: rgba(16, 22, 31, .4);
+
+$font: "Geometria", Arial, sans-serif;
+
+// Сетка ширин
+$site-max: 1920px;      // шире — белый фон, сайт по центру
+$bp-xl: 1599px;
+$bp-lg: 1439px;
+$bp-md: 1279px;
+$bp-mob: 1023px;        // до 1024 — растянутая мобильная версия
+
+@mixin xl { @media (max-width: $bp-xl) { @content; } }
+@mixin lg { @media (max-width: $bp-lg) { @content; } }
+@mixin md { @media (max-width: $bp-md) { @content; } }
+@mixin mob { @media (max-width: $bp-mob) { @content; } }
+@mixin desk { @media (min-width: $bp-mob + 1) { @content; } }
+
+// Типографика: font-size / line-height / weight
+@mixin t($size, $lh, $w: 400) {
+  font-size: $size;
+  line-height: $lh;
+  font-weight: $w;
+}
+@mixin caps { letter-spacing: 1px; text-transform: uppercase; }

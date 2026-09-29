@@ -1,0 +1,115 @@
+{% from 'macros.html' import ico, prod, nslider %}
+<!-- ============ МОДАЛКА: ПОИСК ============ -->
+<div class="modal modal--search search" id="modal-search" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="search-title" data-modal="search" data-state="recent">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close>{{ ico('close') }}</button>
+  <h2 class="modal__title" id="search-title">Поиск по сайту</h2>
+  <form class="search__form" action="#" method="get" data-search-form>
+    <label class="search__field">
+      {{ ico('search') }}
+      <span class="visually-hidden">Что ищем</span>
+      <input type="search" name="q" placeholder="Тип, модель или категория контейнера" autocomplete="off" data-search-input>
+    </label>
+    <button class="btn search__submit" type="submit">Найти</button>
+  </form>
+
+  <div class="search__block" data-search-state="recent">
+    <p class="modal__subtitle">Недавние запросы</p>
+    <ul class="search__block">
+      {%- for r in recent %}
+      <li class="search__recent">
+        <button class="search__recent-text" type="button" data-search-query="{{ r }}">{{ r }}</button>
+        <button class="link-arrow" type="button" data-search-query="{{ r }}">Смотреть{{ ico('arrow') }}</button>
+        <button class="search__recent-del" type="button" aria-label="Удалить из истории" data-recent-del>{{ ico('close20') }}</button>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+
+  <div class="search__empty" data-search-state="empty" hidden>
+    {{ ico('nofound') }}
+    <p>У нас такого нет :(</p>
+  </div>
+
+  <div class="search__results" data-search-state="results" hidden>
+    <div class="search__block">
+      <p class="modal__subtitle">Найдено <span data-search-count>128</span> результатов</p>
+      <ul class="prod-list">
+        {%- for p in search_results %}{{ prod(p) }}{% endfor %}
+      </ul>
+    </div>
+    <a class="link-arrow search__all" href="search.html">Показать все{{ ico('arrow') }}</a>
+  </div>
+</div>
+
+<!-- ============ МОДАЛКА: КОРЗИНА ============ -->
+<div class="modal modal--cart cart" id="modal-cart" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="cart-title" data-modal="cart">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close>{{ ico('close') }}</button>
+  <h2 class="modal__title" id="cart-title" data-cart-title>В корзине 3 товара</h2>
+
+  <div class="cart__full" data-cart-full>
+    <ul class="cart__list">
+      {%- for c in cart %}
+      <li class="cart__item" data-cart-item data-price="{{ c.unit }}">
+        <div class="cart__head">
+          <img class="cart__img" src="img/{{ c.img }}.webp" width="72" height="72" alt="">
+          <div class="prod__titles">
+            <span class="prod__code">{{ c.code }}</span>
+            <a class="prod__name" href="product.html">{{ c.name }}</a>
+          </div>
+        </div>
+        <div class="cart__controls">
+          <span class="cart__price" data-cart-price>{{ c.unit * c.qty }}$</span>
+          <div class="qty">
+            <button class="qty__btn qty__btn--minus" type="button" aria-label="Меньше" data-qty="-1"{% if c.qty == 1 %} disabled{% endif %}></button>
+            <input class="qty__val" type="number" min="1" max="99" value="{{ c.qty }}" aria-label="Количество" data-qty-val>
+            <button class="qty__btn qty__btn--plus" type="button" aria-label="Больше" data-qty="1"></button>
+          </div>
+          <button class="cart__del" type="button" aria-label="Удалить" data-cart-del>{{ ico('trash') }}</button>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+    <div class="cart__foot">
+      <p class="cart__sum">Сумма <span data-cart-sum>5600</span>$</p>
+      <a class="btn cart__order" href="checkout.html">Оформить заказ</a>
+    </div>
+  </div>
+
+  <div class="cart__empty" data-cart-empty hidden>
+    <p class="modal__subtitle">Вас может заинтересовать</p>
+    {{ nslider(novelty[:4]) }}
+  </div>
+</div>
+
+<!-- ============ МОДАЛКА: ОБРАТНАЯ СВЯЗЬ ============ -->
+<div class="modal modal--sm" id="modal-feedback" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="feedback-title" data-modal="feedback">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close>{{ ico('close') }}</button>
+  <h2 class="modal__title" id="feedback-title">Обратная связь</h2>
+  <form class="form" action="#" method="post" novalidate data-feedback-form>
+    <label class="form__field">
+      <input type="text" name="name" placeholder="Имя" required autocomplete="name">
+      <span class="form__ph">Имя<b>*</b></span>
+    </label>
+    <label class="form__field">
+      <input type="email" name="email" placeholder="Электронная почта" required autocomplete="email">
+      <span class="form__ph">Электронная почта<b>*</b></span>
+    </label>
+    <label class="form__field form__field--phone">
+      <span class="form__label">Номер телефона</span>
+      <input type="tel" name="phone" value="+38" autocomplete="tel">
+    </label>
+    <label class="form__field form__field--area">
+      <textarea name="message" placeholder="Ваше сообщение" rows="4"></textarea>
+      <span class="form__ph">Ваше сообщение</span>
+    </label>
+    <button class="btn btn--block" type="submit">Отправить сообщение</button>
+  </form>
+</div>
+
+<!-- ============ МОДАЛКА: СООБЩЕНИЕ ОТПРАВЛЕНО ============ -->
+<div class="modal modal--sm modal--success" id="modal-success" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="success-title" data-modal="success">
+  <button class="close" type="button" aria-label="Закрыть" data-modal-close>{{ ico('close') }}</button>
+  <img class="modal__icon" src="img/icons/i-success.svg" width="80" height="80" alt="">
+  <h2 class="modal__title" id="success-title">Приняли ваше сообщение</h2>
+  <p class="modal__text">Наш менеджер свяжется с вами в ближайшее время, чтобы уточнить детали ответить на любые вопросы.</p>
+</div>

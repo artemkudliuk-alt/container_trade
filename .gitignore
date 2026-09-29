@@ -1,0 +1,7 @@
+node_modules/
+.playwright-mcp/
+# старые архивы прошлых версий вёрстки (Анатолий)
+_figma/
+_figma.7z
+__pycache__/
+_to_delete/

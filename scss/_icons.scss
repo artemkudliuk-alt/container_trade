@@ -1,0 +1,69 @@
+// =========================================================
+// Иконки-маски: цвет берётся из currentColor
+// <span class="ico ico--search"></span>
+// Список иконок — scss/_icons-data.scss (генерируется из img/icons)
+// =========================================================
+@use "sass:map";
+@use "sass:list";
+@use "icons-data" as *;
+
+.ico {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  -webkit-mask: var(--i) center / 100% 100% no-repeat;
+  mask: var(--i) center / 100% 100% no-repeat;
+}
+
+// имя класса → [файл иконки, размер]
+$ico-list: (
+  "menu":    ("i-menu", 16px),
+  "x":       ("i-x", 16px),
+  "chev14":  ("i-chev14", 14px),
+  "chev16":  ("i-chev16", 16px),
+  "chevf":   ("i-chev-f", 14px),
+  "chevr":   ("i-chev-r", 20px),
+  "back":    ("i-back", 32px),
+  "phone":   ("i-phone", 16px),
+  "globe":   ("i-globe", 16px),
+  "search":  ("i-search", 16px),
+  "cart":    ("i-cart", 16px),
+  "burger":  ("i-burger", 16px),
+  "arrow":   ("i-arrow", 16px),
+  "check":   ("i-check", 16px),
+  "pin":     ("i-pin", 16px),
+  "plus":    ("i-plus", 16px),
+  "minus":   ("i-minus", 16px),
+  "slide":   ("i-slide", 12px),
+  "close":   ("i-close32", 32px),
+  "close20": ("i-close20", 20px),
+  "trash":   ("i-trash", 24px),
+  "nofound": ("i-nofound", 48px),
+  "fphone":  ("f-phone", 16px),
+  "fmail":   ("f-mail", 16px),
+  "fpin":    ("f-pin", 16px),
+  "cphone":  ("i-cphone", 24px),
+  "cmail":   ("i-cmail", 24px),
+  "cpin":    ("i-cpin", 21.33px),
+  "pg":      ("i-pg", 12px),
+  "chevfl":  ("i-chev-fl", 14px),
+  "cb":      ("i-cb", 20px),
+  "chipx":   ("i-chip-x", 14px),
+  "bc":      ("i-bc", 16px),
+  "info":    ("i-info", 20px),
+  "model":   ("i-model", 16px),
+  "edit":    ("i-edit", 16px),
+);
+
+@each $name, $v in $ico-list {
+  $file: list.nth($v, 1);
+  $size: list.nth($v, 2);
+  .ico--#{$name} {
+    --i: url("#{map.get($icons, $file)}");
+    @if $size != 16px { width: $size; height: $size; }
+  }
+}
+
+.ico--back { transform: scaleX(-1); }

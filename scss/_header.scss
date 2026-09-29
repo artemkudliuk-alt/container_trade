@@ -1,0 +1,321 @@
+@use "variables" as *;
+// =========================================================
+// Шапка + выпадающие меню (десктоп)
+// =========================================================
+// Шапка закреплена на всех страницах; .header-slot держит её место в потоке
+.header-slot {
+  flex: none;
+  height: 92px;
+  @include mob { height: 76px; }
+}
+.header-wrap {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 30;                      // над затемнением .overlay
+  width: 100%;
+  max-width: $site-max;
+  padding: 8px;
+  transform: translateX(-50%);
+}
+// после прокрутки фон плотнее: полупрозрачное стекло плохо читается над белым
+.header { transition: background-color .25s; }
+.is-scrolled .header { background: rgba(16, 22, 31, .82); }
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  height: 76px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(16, 22, 31, .4);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+
+  &__logo { position: relative; flex: none; width: 212.8px; height: 36px; }
+  &__logo-img { position: absolute; left: 20px; top: -20px; width: 162px; height: 64px; }
+
+  &__nav {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+  &__actions { flex: none; display: flex; align-items: center; gap: 8px; }
+
+  @include xl { gap: 24px; }
+  @include md { &__nav { justify-content: flex-start; } }
+
+  @include mob {
+    justify-content: flex-end;
+    gap: 4px;
+    height: 60px;
+    padding: 12px;
+
+    &__logo { position: absolute; left: 12px; top: 0; width: 112px; height: 44px; }
+    &__logo-img { position: static; width: 112px; height: 44px; }
+    &__nav { display: none; }
+    &__actions { gap: 4px; }
+  }
+}
+
+// ---------- Кнопка «Каталог» ----------
+.btn-catalog {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  background: $blue;
+  color: #fff;
+  @include t(16px, 11px, 500);
+  @include caps;
+  transition: background-color .2s;
+
+  &__text { display: block; height: 11px; }
+  .ico--x { display: none; }
+  &:hover { background: $blue-hover; }
+
+  .dd.is-open & {
+    background: $blue-active;
+    .ico--menu { display: none; }
+    .ico--x { display: inline-block; }
+  }
+}
+
+// ---------- Пункты меню ----------
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 30px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  @include t(12px, 8px, 500);
+  @include caps;
+  color: #fff;
+  white-space: nowrap;
+  transition: background-color .2s, color .2s;
+
+  &--drop { gap: 6px; }
+  &:hover { background: #fff; color: $link; }
+  &.is-current { color: $blue; }
+
+  .dd.is-open & { background: #fff; color: $muted; border-radius: 6px; }
+
+  @include md { display: none; }
+}
+
+// ---------- Кнопки справа ----------
+.hbtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 7px 10px;
+  border: 1px solid rgba(221, 227, 236, .12);
+  border-radius: 6px;
+  background: rgba(221, 227, 236, .12);
+  color: #fff;
+  @include t(14px, 10px);
+  white-space: nowrap;
+  transition: background-color .2s, color .2s;
+
+  &:hover, .dd.is-open > & { background: #fff; color: $muted; }
+
+  &__phone { @include t(18px, 13px, 500); }
+  &--icon { width: 36px; padding: 0; }
+
+  &--cart { background: $blue; }
+  &--cart:hover { background: $blue-hover; color: #fff; }
+  &.is-active, &.is-active:hover { background: #fff; color: $ink; }
+  &__badge {
+    position: absolute;
+    left: 24px;
+    top: -6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border: 1px solid $line;
+    border-radius: 50%;
+    background: #fff;
+    color: $ink;
+    @include t(11px, 8px, 700);
+    &:empty { display: none; }
+  }
+
+  &--burger {
+    display: none;
+    .ico--x { display: none; }
+    &.is-active {
+      background: #fff;
+      color: $ink;
+      .ico--burger { display: none; }
+      .ico--x { display: inline-block; }
+    }
+  }
+
+  @include lg {
+    &--lang, &--cur { display: none; }
+    &--burger { display: flex; }
+  }
+  @include mob {
+    &__phone { @include t(14px, 10px, 500); }
+    &--phone .ico--phone, &--search { display: none; }
+  }
+  // узкие телефоны (360–375): номер не влезает рядом с логотипом — только иконка, номера в выпадашке
+  @media (max-width: 389px) {
+    &--phone { width: 36px; padding: 0; }
+    &--phone .ico--phone { display: inline-block; }
+    &--phone .hbtn__phone, &--phone .ico--chev14 { display: none; }
+  }
+}
+.dd--phone .dd-small--phones { @media (max-width: 389px) { left: auto; right: 0; width: auto; } }
+.dd--lang, .dd--cur { @include lg { display: none; } }
+
+// =========================================================
+// Выпадающие списки (dd = dropdown)
+// =========================================================
+.dd {
+  position: relative;
+  flex: none;
+
+  &__panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .15s, transform .15s, visibility 0s .15s;
+  }
+  &.is-open > &__panel {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: opacity .15s, transform .15s;
+  }
+}
+
+// Простой список («О нас»)
+.dd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid $line;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: $shadow-drop;
+  white-space: nowrap;
+
+  a { @include t(16px, 20px, 500); color: $ink; transition: color .2s; }
+  a:hover { color: $blue; }
+}
+
+// Телефоны / язык / валюта
+.dd-small {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  min-width: 100%;
+  padding: 12px 10px;
+  border: 1px solid $line;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: $shadow-drop;
+  white-space: nowrap;
+
+  a, button { display: block; color: $muted; transition: color .2s; text-align: left; }
+  a:hover, button:hover { color: $blue; }
+
+  &--phones a { @include t(18px, 13px, 500); }
+  &--lang a { @include t(18px, 13px, 500); }
+  &--cur { width: auto; }
+  &--cur button { @include t(14px, 10px); }
+}
+
+// =========================================================
+// Мега-меню «Каталог»
+// =========================================================
+.mega {
+  width: 600px;
+  padding: 16px;
+  border-radius: 20px;
+  background: #fff;
+  color: $ink;
+  box-shadow: $shadow-panel;
+
+  &__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid $line;
+    border-radius: 12px;
+    background: #fff;
+    text-align: left;
+    transition: box-shadow .2s, border-color .2s;
+
+    &:hover { border-color: #c9d6e6; box-shadow: $shadow; }
+  }
+  &__media { position: relative; display: block; height: 100px; }
+  &__media img { position: absolute; }
+  &__name { display: block; min-height: 40px; @include t(16px, 20px, 500); }
+
+  // уровень 2
+  &__sub { display: flex; flex-direction: column; gap: 12px; }
+  &__sub-media { position: relative; height: 100px; }
+  &__sub-media img { position: absolute; left: 0; top: 8px; width: auto; height: 85px; }
+  &__back { display: flex; align-items: center; gap: 8px; height: 36px; @include t(28px, 32px, 800); color: $ink; text-align: left; }
+  &__back .ico { color: $blue; }
+}
+
+// Список пунктов (подкатегории, «О нас» в мобильном меню)
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  a, button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: $field;
+    @include t(14px, 18px, 500);
+    @include caps;
+    color: $ink;
+    text-align: left;
+    transition: background-color .2s, color .2s;
+
+    &:hover { background: $field-hover; color: $link; }
+  }
+  .ico--chevr { margin-left: auto; color: $blue; }
+}
+
+// позиции картинок в карточках мега-меню (как в макете)
+.mega__card--sea img { left: 14px; top: 8px; width: 131px; height: 85px; }
+.mega__card--reef img { left: 16px; top: 10px; width: 127.3px; height: 80px; }
+.mega__card--pw img { left: 22px; top: 10px; width: 114.7px; height: 80px; }
+.mega__card--ot img { left: 22px; top: 10px; width: 116px; height: 80px; }
+.mega__card--parts img { left: 6px; top: 24px; width: 147px; height: 57px; }
+.mega__card--rent img { left: 37px; top: 10px; width: 84.7px; height: 80px; }

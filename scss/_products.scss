@@ -1,0 +1,151 @@
+@use "variables" as *;
+// =========================================================
+// Товар: строка списка (.prod) и карточка слайдера (.ncard)
+// =========================================================
+.prod-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  @include md { display: grid; grid-template-columns: 1fr 1fr; }
+  @include mob { display: flex; }
+}
+
+// Товар карточкой (планшет, мобильный, каталог с фильтром)
+@mixin prod-card {
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 8px;
+  padding: 16px;
+  .prod__img { width: 80px; height: 80px; }
+  .prod__meta { flex: 0 0 100%; flex-direction: row; gap: 20px; }
+  .cond { flex: 0 0 100%; }
+  .prod__type { margin-right: 8px; }
+  .prod__buy { flex: 1 1 0; }
+  .btn { width: auto; flex: 0 1 190px; }
+}
+
+.prod {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 20px;
+  border: 1px solid $line;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+  transition: box-shadow .25s;
+
+  &:hover { box-shadow: $shadow; }
+
+  &__img { flex: none; width: 100px; height: 100px; border-radius: 8px; object-fit: cover; }
+  &__titles { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  &__code { @include t(12px, 15px, 500); color: $blue; }
+  &__name { @include t(16px, 20px, 500); color: $ink; transition: color .2s; }
+  &__name:hover { color: $link; }
+  &__meta { flex: none; display: flex; gap: 20px; }
+  &__type { flex: none; width: 32px; height: 32px; }
+  &__buy { flex: none; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+  .btn { width: 120px; }
+
+  @include lg {
+    gap: 16px;
+    &__meta { flex-direction: column; gap: 0; }
+  }
+  @include md { @include prod-card; }
+}
+
+// В каталоге рядом с фильтром места меньше — карточки в две колонки уже с 1599px
+.catalog-body .prod-list {
+  @include xl { display: grid; grid-template-columns: 1fr 1fr; }
+  @include mob { display: flex; }
+}
+.catalog-body .prod { @include xl { @include prod-card; } }
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 20px;
+  @include t(14px, 18px);
+  color: $muted;
+  white-space: nowrap;
+  .ico--check { color: $blue; }
+  .ico--pin { color: $muted; }
+}
+
+.cond {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background: $field;
+  &__text { flex: 1 1 0; min-width: 0; @include t(12px, 15px); color: $muted; }
+}
+
+.badge {
+  flex: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  @include t(12px, 15px, 500);
+  color: #fff;
+  white-space: nowrap;
+  &--new { background: #00c056; }
+  &--c1 { background: #8ac000; }
+  &--c2 { background: #bac000; }
+  &--c3 { background: #e8b900; }
+  &--c4 { background: #e87800; }
+  &--c5 { background: #c05d00; }
+}
+
+.price {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70px;
+  &__old { @include t(14px, 18px); color: $muted; }
+  &__now { @include t(20px, 25px, 700); color: $ink; white-space: nowrap; }
+  &__now--sale { color: $green; }
+}
+
+// ---------- Карточка «Новинки» / «Вас может заинтересовать» ----------
+.ncard {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  height: auto;
+  padding: 16px 20px;
+  border: 1px solid $line;
+  border-radius: 16px;
+  background: #fff;
+
+  &__top { display: flex; align-items: center; gap: 24px; }
+  &__img { flex: none; width: 100px; height: 100px; border-radius: 8px; object-fit: cover; }
+  &__info { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  &__bottom { display: flex; align-items: center; gap: 24px; height: 44px; }
+  .prod__buy { justify-content: flex-start; }
+  .btn { width: 120px; }
+
+  @include md { .prod__meta { flex-direction: row; gap: 20px; } }
+  @include mob {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 12px;
+    padding: 16px;
+
+    &__top, &__info, &__bottom { display: contents; }
+    &__img { width: 80px; height: 80px; }
+    .prod__titles { flex: 1 1 0; }
+    .prod__meta, .cond { flex: 0 0 100%; }
+    .prod__type { margin-right: 8px; }
+    .prod__buy { flex: 1 1 0; justify-content: flex-end; }
+    .btn { width: auto; flex: 0 1 190px; }
+  }
+}

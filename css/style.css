@@ -1213,10 +1213,29 @@ a.link-arrow:hover .ico, a:hover .link-arrow .ico {
   justify-content: space-between;
   gap: 40px;
   height: 800px;
-  background: linear-gradient(180deg, rgba(16, 26, 43, 0) 40%, #000 100%), #1b2536 url("../img/hero.webp") center/cover no-repeat;
+  background: #1b2536 url("../img/hero-poster.webp") center/cover no-repeat;
   color: #fff;
 }
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(16, 26, 43, 0) 40%, #000 100%);
+  pointer-events: none;
+}
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
 .hero__content {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -1248,6 +1267,11 @@ a.link-arrow:hover .ico, a:hover .link-arrow .ico {
   .hero__content {
     flex-direction: column;
     gap: 24px;
+  }
+}
+@media (max-width: 599px) {
+  .hero {
+    background-image: url("../img/hero-poster-m.webp");
   }
 }
 @media (max-width: 1023px) {

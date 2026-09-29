@@ -26,6 +26,25 @@
     check();
   }
 
+  /* ---------- Видео первого экрана ---------- */
+  function initHeroVideo() {
+    var v = $('[data-hero-video]')[0];
+    if (!v) { return; }
+    var saveData = navigator.connection && navigator.connection.saveData;
+    // «уменьшить движение» или экономия трафика — только первый кадр (фон блока)
+    if (saveData || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.removeAttribute('autoplay');
+      v.remove();
+      return;
+    }
+    // вне экрана — пауза, чтобы не грузить процессор и батарею
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { v.play().catch(function () {}); } else { v.pause(); }
+      }).observe(v);
+    }
+  }
+
   /* =========================================================
      Бегущая строка преимуществ: смена раз в 2 секунды
      ========================================================= */
@@ -681,6 +700,7 @@
 
   $(function () {
     initStickyHeader();
+    initHeroVideo();
     initTicker();
     initDropdowns();
     initMobileMenu();

@@ -7,6 +7,14 @@
 <div class="top">
   <!-- ============ HERO ============ -->
   <section class="hero">
+    <!-- Видео первого экрана: AV1 для современных браузеров, H.264 — для остальных;
+         до 600px — квадрат из центра кадра (на телефоне виден только он). Без звука. -->
+    <video class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true" data-hero-video>
+      <source media="(max-width: 599px)" src="video/hero-m.av1.mp4" type='video/mp4; codecs="av01.0.08M.08"'>
+      <source media="(max-width: 599px)" src="video/hero-m.mp4" type="video/mp4">
+      <source src="video/hero.av1.mp4" type='video/mp4; codecs="av01.0.08M.08"'>
+      <source src="video/hero.mp4" type="video/mp4">
+    </video>
 {% include 'header.html' %}
 
     <div class="hero__content">

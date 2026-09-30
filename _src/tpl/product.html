@@ -33,12 +33,14 @@
       </button>
       <div class="pd__thumbs-wrap">
         <button class="pd__arrow pd__arrow--prev" type="button" aria-label="Предыдущее фото" data-gallery-prev>{{ ico('pg') }}</button>
-        <div class="pd__thumbs">
+        <div class="pd__thumbs swiper" data-thumbs>
+          <div class="swiper-wrapper">
           {%- for im in p.imgs %}
-          <button class="pd__thumb{% if loop.first %} is-active{% endif %}" type="button" aria-label="Фото {{ loop.index }}" data-src="img/{{ im }}.webp">
+          <button class="pd__thumb swiper-slide{% if loop.first %} is-active{% endif %}" type="button" aria-label="Фото {{ loop.index }}" data-src="img/{{ im }}.webp">
             <img src="img/{{ im }}-t.webp" width="185" height="125" alt="" loading="lazy">
           </button>
           {%- endfor %}
+          </div>
         </div>
         <button class="pd__arrow pd__arrow--next" type="button" aria-label="Следующее фото" data-gallery-next>{{ ico('pg') }}</button>
       </div>
@@ -112,14 +114,13 @@
       <!-- Описание -->
       <section class="section pd__block">
         <h2 class="pd__h2">Описание товара</h2>
+        {#- OpenCart: сюда выводится описание товара из редактора как есть — только теги, без классов #}
         <div class="pd__desc">
           {%- for t in p.desc %}
-          <p class="pd__text">{{ t }}</p>
+          <p>{{ t }}</p>
           {%- endfor %}
-        </div>
-        <div class="pd__pros">
-          <h3 class="pgroup__title">Преимущества</h3>
-          <ul class="pd__list">
+          <h3>Преимущества</h3>
+          <ul>
             {%- for t in p.pros %}
             <li>{{ t }}</li>
             {%- endfor %}

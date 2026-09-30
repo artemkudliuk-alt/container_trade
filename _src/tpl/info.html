@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
-{% from 'macros.html' import ico, page_hero, trow with context %}
+{% from 'macros.html' import ico, page_hero with context %}
 {# Информационная страница: в OpenCart — information/information, тело — HTML из редактора #}
 {% block top %}
 {{ page_hero(img, h1, lead) }}
 {% endblock %}
 {% block content %}
-  <article class="section article rich">
+  <article class="section article">
+    {#- тело из редактора выводится как есть — только теги, стили задаёт .rich #}
+    <div class="rich">
 {% include 'info/' ~ slug ~ '.html' %}
+    </div>
   </article>
 {% endblock %}

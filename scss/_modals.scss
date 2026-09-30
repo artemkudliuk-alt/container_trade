@@ -11,7 +11,7 @@
   flex-direction: column;
   gap: 20px;
   width: calc(100% - 80px);
-  max-width: 1600px;
+  max-width: $site-max - 80px;   // как шапка: во всю ширину сайта минус поля (в макете 1680 → 1600)
   max-height: calc(100vh - 108px);
   overflow-y: auto;
   padding: 40px;
@@ -26,6 +26,18 @@
 
   &.is-open { display: flex; }
   &:focus { outline: 0; }
+
+  // Аккуратная полоса прокрутки — одинаковая в Chrome и Safari (оба понимают ::-webkit-scrollbar).
+  // Стандартные scrollbar-width/color — только для Firefox: в Chrome они отключили бы ::-webkit-scrollbar.
+  &::-webkit-scrollbar { width: 12px; }
+  &::-webkit-scrollbar-track { margin: 28px 0; background: transparent; }   // не заходит на скругления
+  &::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    border-radius: 12px;
+    background: rgba(91, 102, 117, .35) padding-box;
+    &:hover { background-color: rgba(91, 102, 117, .55); }
+  }
+  @supports (-moz-appearance: none) { scrollbar-width: thin; scrollbar-color: rgba(91, 102, 117, .35) transparent; }
 
   // маленькие окна — затемнение перекрывает и шапку
   &--sm { z-index: 40; width: 600px; max-width: calc(100% - 32px); }

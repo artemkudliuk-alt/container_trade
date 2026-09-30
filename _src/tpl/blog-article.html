@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% from 'macros.html' import ico, page_hero, pcard, trow with context %}
+{% from 'macros.html' import ico, page_hero, pcard with context %}
 {% block top %}
 {{ page_hero('hero-article', hero[1], hero[2], date=hero[0]) }}
 {% endblock %}
@@ -9,39 +9,32 @@
 {% block content %}
   <!-- ============ СТАТЬЯ ============ -->
   <article class="section article">
-    <section class="article__block">
-      <h2 class="article__h2">{{ a.s1.h2 }}</h2>
-      <div class="article__body">
-        <p class="article__intro">{{ a.s1.intro }}</p>
-        {{ ul(a.s1.list) }}
-      </div>
-    </section>
+    {#- OpenCart: тело статьи из редактора выводится как есть — только теги, стили задаёт .rich #}
+    <div class="rich rich--article">
+      <h2>{{ a.s1.h2 }}</h2>
+      <p>{{ a.s1.intro }}</p>
+      {{ ul(a.s1.list) }}
 
-    <section class="article__block article__block--lg">
-      <h2 class="article__h2">{{ a.s2.h2 }}</h2>
+      <h2>{{ a.s2.h2 }}</h2>
       {%- for it in a.s2['items'] %}
-      <div class="article__block">
-        <img class="article__img" src="img/{{ it.img }}.webp" width="600" height="400" alt="{{ it.h3 }}" loading="lazy">
-        <h3 class="article__h3 article__h3--num"><span class="article__num">{{ loop.index }}.</span>{{ it.h3 }}</h3>
-        <div class="article__body">
-          <p class="article__intro">{{ it.intro }}</p>
-          {{ ul(it.list) }}
-        </div>
-      </div>
+      <img src="img/{{ it.img }}.webp" width="600" height="400" alt="{{ it.h3 }}" loading="lazy">
+      <h3>{{ loop.index }}. {{ it.h3 }}</h3>
+      <p>{{ it.intro }}</p>
+      {{ ul(it.list) }}
       {%- endfor %}
-    </section>
 
-    <section class="article__block">
-      <h2 class="article__h2">{{ a.table.h2 }}</h2>
-      <div class="table">
-        {%- for r in a.table.rows %}{{ trow(r) }}{% endfor %}
-      </div>
-    </section>
+      <h2>{{ a.table.h2 }}</h2>
+      <table>
+        <tbody>
+          {%- for r in a.table.rows %}
+          <tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table>
 
-    <section class="article__block">
-      <h2 class="article__h2">{{ a.summary.h2 }}</h2>
+      <h2>{{ a.summary.h2 }}</h2>
       {{ ul(a.summary.list) }}
-    </section>
+    </div>
 
     <div class="article__share">
       <span>Поделитесь статьей</span>

@@ -18,9 +18,6 @@
   padding: 8px;
   transform: translateX(-50%);
 }
-// после прокрутки фон плотнее: полупрозрачное стекло плохо читается над белым
-.header { transition: background-color .25s; }
-.is-scrolled .header { background: rgba(16, 22, 31, .82); }
 
 .header {
   position: relative;

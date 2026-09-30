@@ -19,13 +19,6 @@
     $body.toggleClass('is-locked', any);
   }
 
-  /* ---------- Закреплённая шапка: плотный фон после прокрутки ---------- */
-  function initStickyHeader() {
-    var check = function () { $body.toggleClass('is-scrolled', window.scrollY > 10); };
-    $(window).on('scroll', check);
-    check();
-  }
-
   /* ---------- Видео первого экрана ---------- */
   function initHeroVideo() {
     var v = $('[data-hero-video]')[0];
@@ -565,13 +558,20 @@
     if ($g.length) {
       var $main = $g.find('[data-gallery-main]');
       var $thumbs = $g.find('.pd__thumb');
+      // миниатюры — слайдер: фото может быть больше четырёх
+      var thumbs = window.Swiper ? new window.Swiper($g.find('[data-thumbs]')[0], {
+        slidesPerView: 'auto',
+        spaceBetween: 4,
+        watchOverflow: true,
+        breakpoints: { 1024: { slidesPerView: 4, spaceBetween: 12 } }
+      }) : null;
       var show = function (i) {
         i = (i + $thumbs.length) % $thumbs.length;
         var $t = $thumbs.eq(i);
         if ($t.hasClass('is-active')) return;
         $thumbs.removeClass('is-active');
         $t.addClass('is-active');
-        $t[0].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+        if (thumbs) { thumbs.slideTo(Math.max(0, i - 1)); }  // активная — вторая слева, соседи видны
         $main.addClass('is-fading');
         setTimeout(function () { $main.attr('src', $t.attr('data-src')).removeClass('is-fading'); }, 150);
       };
@@ -579,6 +579,17 @@
       $thumbs.on('click', function () { show($thumbs.index(this)); });
       $g.find('[data-gallery-prev]').on('click', function () { show(current() - 1); });
       $g.find('[data-gallery-next]').on('click', function () { show(current() + 1); });
+
+      // Закрепление галереи (десктоп): под шапкой (100) или под панелью покупки (188);
+      // если галерея выше окна — её низ с миниатюрами остаётся виден
+      var stickTop = function () {
+        var off = $body.hasClass('is-pd-bar') ? 188 : 100;
+        var top = Math.min(off, window.innerHeight - $g[0].offsetHeight - 8);
+        $g[0].style.setProperty('--pd-top', top + 'px');
+      };
+      $(window).on('resize', stickTop);
+      new MutationObserver(stickTop).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      stickTop();
 
       // Фото на весь экран: стрелки, клавиши ←/→, свайп; при закрытии галерея встаёт на то же фото
       var lb = $g.find('[data-lightbox]')[0];
@@ -650,7 +661,6 @@
     // Плавающая панель покупки
     var $buy = $('[data-pd-buy]'), $bar = $('[data-pd-bar]');
     if ($buy.length && $bar.length) {
-      var $body = $('body');
       var check = function () {
         var r = $buy[0].getBoundingClientRect();
         var on = r.bottom < 90;
@@ -699,7 +709,6 @@
   }
 
   $(function () {
-    initStickyHeader();
     initHeroVideo();
     initTicker();
     initDropdowns();

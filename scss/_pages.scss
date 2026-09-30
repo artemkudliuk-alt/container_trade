@@ -58,7 +58,8 @@
   display: flex;
   gap: 8px;
 
-  a, span {
+  // только кнопки: иконка стрелки внутри — тоже span, её не трогаем
+  > a, > span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,28 +127,10 @@
   }
 }
 
-// ---------- Статья блога ----------
+// ---------- Статья / информационная страница: рамка блока ----------
 .article {
   gap: 40px;
   padding: 40px 320px;
-
-  &__block { display: flex; flex-direction: column; gap: 12px; }
-  &__block--lg { gap: 20px; }
-  &__h2 { @include t(36px, 44px, 800); color: $ink; }
-  &__h3 { @include t(28px, 36px, 800); color: $ink; }
-  // нумерация как в макете: номер висит слева, текст с отступом 1.43em
-  &__h3--num { position: relative; padding-left: 1.43em; }
-  &__num { position: absolute; left: .35em; top: 0; }
-  &__body { display: flex; flex-direction: column; gap: 8px; }
-  &__intro { @include t(20px, 25px, 500); color: $ink; }
-  &__text { @include t(16px, 24px); color: $ink; }
-  &__img { width: 600px; max-width: 100%; height: 400px; border-radius: 16px; object-fit: cover; }
-
-  ul, ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  li { position: relative; padding-left: 24px; @include t(16px, 24px); color: $ink; }
-  li::before { content: ""; position: absolute; left: 10px; top: 11px; width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
-
-  .table__cell:first-child { flex: 1 1 0; }
 
   &__share {
     display: flex;
@@ -170,25 +153,27 @@
   @include mob {
     gap: 24px;
     padding: 28px 16px;
-    &__block--lg { gap: 16px; }
-    &__h2 { @include t(28px, 32px, 800); }
-    &__h3 { @include t(24px, 28px, 800); }
-    &__img { width: 100%; height: auto; aspect-ratio: 358 / 238; }
     &__share { flex-wrap: wrap; gap: 12px; min-height: 52px; padding: 12px; @include t(16px, 20px, 500); }
     &__share-list img { width: 28px; height: 28px; }
   }
 }
 
-// ---------- Текст из редактора (информационные страницы OpenCart) ----------
-// Разметка — голые h2/h3/p/ul/ol/a/strong, как их отдаёт CKEditor
+// ---------- Текст из редактора OpenCart (статьи, информационные страницы) ----------
+// Внутри — только голые теги, как их отдаёт редактор: h2/h3/h4/p/ul/ol/img/table/a/strong.
+// Все стили задаются через родителя .rich, классов внутри текста нет.
 .rich {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
+  color: $ink;
 
-  > h2 { margin-top: 28px; @include t(36px, 44px, 800); color: $ink; }
-  > h3 { margin-top: 16px; @include t(24px, 30px, 800); color: $ink; }
-  > h2:first-child, > h3:first-child { margin-top: 0; }
-  > p { @include t(16px, 24px); color: $ink; }
-  strong { font-weight: 700; }
+  > * { margin: 0; }
+  h2 { margin-top: 28px; @include t(36px, 44px, 800); }
+  h3 { margin-top: 16px; @include t(28px, 36px, 800); }
+  h4 { margin-top: 8px; @include t(20px, 25px, 500); }
+  > :first-child { margin-top: 0; }
+  p { @include t(16px, 24px); }
+  strong, b { font-weight: 700; }
   a:not(.btn) {
     color: $link;
     text-decoration: underline;
@@ -197,66 +182,38 @@
     transition: text-decoration-color .2s;
     &:hover { text-decoration-color: currentColor; }
   }
-  li ul { margin-top: 8px; }
+  img { display: block; width: 600px; max-width: 100%; height: auto; border-radius: 16px; object-fit: cover; }
 
-  // нумерованный список: номер вместо точки
+  // списки
+  ul, ol { display: flex; flex-direction: column; gap: 8px; padding: 0; list-style: none; }
+  li { position: relative; padding-left: 24px; @include t(16px, 24px); }
+  li ul, li ol { margin-top: 8px; }
+  ul > li::before { content: ""; position: absolute; left: 10px; top: 11px; width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
   ol { counter-reset: rich; }
   ol > li { counter-increment: rich; padding-left: 32px; }
-  ol > li::before {
-    content: counter(rich) ".";
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: auto;
-    border-radius: 0;
-    background: none;
-    font-weight: 700;
-    color: $blue;
-    text-align: right;
+  ol > li::before { content: counter(rich) "."; position: absolute; left: 0; top: 0; width: 24px; font-weight: 700; color: $blue; text-align: right; }
+
+  // таблицы: полосы через строку, как в таблицах макета
+  table { width: 100%; border-collapse: separate; border-spacing: 0 2px; }
+  th, td { padding: 20px; text-align: left; vertical-align: middle; @include t(16px, 20px, 500); }
+  tbody tr:nth-child(odd) td { background: $field; }
+  td:first-child, th:first-child { border-radius: 8px 0 0 8px; }
+  td:last-child, th:last-child { border-radius: 0 8px 8px 0; }
+  th { padding-block: 12px; @include t(12px, 15px, 500); @include caps; color: $muted; }
+
+  // статья блога: абзац сразу после заголовка — вводный (как в макете)
+  &--article {
+    h2 + p, h3 + p { @include t(20px, 25px, 500); }
+    img { margin-top: 8px; aspect-ratio: 600 / 400; }
   }
 
-  &__btn { display: inline-flex; margin-top: 12px; height: 44px; padding: 12px 24px; @include t(16px, 20px, 500); }
-  .table { margin-top: 4px; }
-
   @include mob {
-    > h2 { margin-top: 16px; @include t(28px, 32px, 800); }
-    > h3 { margin-top: 8px; @include t(20px, 25px, 800); }
-    > p, li { @include t(14px, 20px); }
-    li::before { top: 9px; }
-    ol > li::before { top: 0; }
-    &__btn { width: 100%; justify-content: center; }
-  }
-}
-
-// Характеристики: название / значение
-.table--spec {
-  .table__row { min-height: 0; padding: 12px 20px; }
-  .table__cell { @include t(16px, 20px); }
-  .table__cell:last-child { font-weight: 500; }
-  .table__row--head .table__cell { @include t(12px, 15px, 500); @include caps; color: $muted; }
-  @include mob {
-    .table__row { padding: 8px; }
-    .table__cells { flex-direction: column; align-items: flex-start; gap: 2px; }
-    .table__cell { flex: none; @include t(14px, 18px); }
-  }
-}
-
-// Цифры компании (внутри .article — перекрывают его стили списков)
-.article .stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin: 16px 0;
-
-  .stats__item { display: flex; flex-direction: column; gap: 4px; padding: 20px; border-radius: 16px; background: $field; }
-  .stats__item::before { display: none; }
-  .stats__num { @include t(36px, 44px, 800); color: $blue; letter-spacing: -.5px; }
-  .stats__label { @include t(14px, 18px, 500); color: $muted; }
-
-  @include md { grid-template-columns: repeat(2, 1fr); }
-  @include mob {
-    .stats__item { padding: 16px; }
-    .stats__num { @include t(28px, 32px, 800); }
+    h2 { margin-top: 16px; @include t(28px, 32px, 800); }
+    h3 { margin-top: 8px; @include t(24px, 28px, 800); }
+    table { table-layout: fixed; }   // длинные значения (12192х2438х2591) не распирают экран
+    th, td { padding: 8px 12px; @include t(14px, 18px, 500); overflow-wrap: anywhere; }
+    th { @include t(11px, 14px, 500); }
+    &--article img { width: 100%; aspect-ratio: 358 / 238; }
   }
 }
 

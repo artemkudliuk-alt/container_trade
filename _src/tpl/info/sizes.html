@@ -2,9 +2,13 @@
     <h2>{{ group }}</h2>
     {%- for name, rows in items %}
     <h3>{{ name }}</h3>
-    <div class="table table--spec">
-      {%- for r in rows %}{{ trow(r) }}{% endfor %}
-    </div>
+    <table>
+      <tbody>
+        {%- for k, v in rows %}
+        <tr><td>{{ k }}</td><td>{{ v }}</td></tr>
+        {%- endfor %}
+      </tbody>
+    </table>
     {%- endfor %}
     {%- endfor %}
 

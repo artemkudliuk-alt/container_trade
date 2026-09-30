@@ -404,8 +404,16 @@
      одна точка — одна «страница»
      ========================================================= */
   function swiperOpts($slider, extra) {
+    // Зацикливание (ТЗ): Swiper может крутить по кругу, только если карточек хватает
+    // (с запасом на страницу по обе стороны); иначе он молча отключает loop.
+    // Тогда включаем rewind — с последней страницы «вперёд» ведёт на первую, круг сохраняется.
+    var views = [extra.slidesPerView], groups = [extra.slidesPerGroup || 1];
+    $.each(extra.breakpoints || {}, function (bp, o) { views.push(o.slidesPerView); groups.push(o.slidesPerGroup || 1); });
+    var maxView = Math.max.apply(null, $.map(views, function (v) { return v === 'auto' ? 3 : v; }));
+    var canLoop = $slider.find('.swiper-slide').length >= maxView * 2 + Math.max.apply(null, groups);
     return $.extend(true, {
-      loop: true,
+      loop: canLoop,
+      rewind: !canLoop,
       speed: 400,
       watchOverflow: true,
       pagination: {
@@ -461,6 +469,28 @@
     }
     toggleMobileSliders();
     mqMobile.addEventListener('change', toggleMobileSliders);
+  }
+
+  /* ---------- «Поделитесь статьей» ---------- */
+  function initShare() {
+    var $s = $('[data-share]');
+    if (!$s.length) { return; }
+    var url = location.href.split('#')[0], title = document.title;
+    var params = { tg: { url: url, text: title }, in: { url: url }, fb: { u: url } };
+    $s.find('[data-share-to]').each(function () {
+      this.href += '?' + $.param(params[$(this).data('share-to')]);
+    });
+    // Instagram не принимает ссылки с сайтов: копируем ссылку (на телефоне — системное «Поделиться»)
+    var $note = $s.find('[data-share-note]'), timer;
+    $s.on('click', '[data-share-copy]', function () {
+      if (navigator.share && !canHover) { navigator.share({ title: title, url: url }).catch(function () {}); return; }
+      var done = function () {
+        $note.text('Ссылка скопирована');
+        clearTimeout(timer);
+        timer = setTimeout(function () { $note.text(''); }, 2500);
+      };
+      if (navigator.clipboard) { navigator.clipboard.writeText(url).then(done, function () {}); }
+    });
   }
 
   /* ---------- FAQ ---------- */
@@ -719,6 +749,7 @@
     initCart();
     initFeedback();
     initSliders();
+    initShare();
     initFaq();
     initFooter();
     initFilters();

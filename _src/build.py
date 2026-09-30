@@ -36,7 +36,7 @@ for c in D.CATS:
     h = D.CAT_HEROES[c['key']]
     PAGES[c['href']] = dict(tpl='catalog.html', key=c['key'], h=h, title=h['title'] + ' — купить в Container Trade',
                             description=h['lead'], catalog=D.CATALOG, chips=_chips, groups=D.FILTER_GROUPS)
-PAGES['search.html'] = dict(title='Результаты поиска — Container Trade', description='Результаты поиска по каталогу контейнеров.')
+PAGES['search.html'] = dict(title='Результаты поиска — Container Trade', description='Результаты поиска по каталогу контейнеров.', catalog=D.CATALOG)
 _ct = [dict(c, total=c['unit'] * c['qty']) for c in D.CART]
 PAGES['checkout.html'] = dict(title='Оформление заказа — Container Trade', description='Оформление заказа.', simple_header=True,
                               order=_ct, order_total=sum(c['total'] for c in _ct))
@@ -46,7 +46,7 @@ import info as I
 def _info(tpl, h1, lead, img, **kw):
     return dict(tpl=tpl, title=h1 + ' — Container Trade', description=lead, h1=h1, lead=lead, img=img, **kw)
 for name, c in I.INFO.items():
-    PAGES[name] = _info('info.html', c['title'], c['lead'], c['img'], slug=c['slug'], sizes=I.SIZES)
+    PAGES[name] = _info('info.html', c['title'], c['lead'], c['img'], slug=c['slug'], sizes=I.SIZES, stats=c.get('stats'))
 _cat_links = [(c['name'], c['href'], [(s, c['href']) for s in c['subs']]) for c in D.CATS]
 PAGES['sitemap.html'] = _info('sitemap.html', 'Карта сайта', 'Полный список страниц на сайте компании «Контейнер Трейд».', 'hero-blog',
                               groups=[(g, links if links is not None else _cat_links) for g, links in I.SITEMAP])

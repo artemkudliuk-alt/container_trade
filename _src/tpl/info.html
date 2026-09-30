@@ -6,6 +6,13 @@
 {% endblock %}
 {% block content %}
   <article class="section article">
+    {%- if stats %}
+    <ul class="stats">
+      {%- for num, label in stats %}
+      <li class="stats__item"><b class="stats__num">{{ num }}</b><span class="stats__label">{{ label }}</span></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
     {#- тело из редактора выводится как есть — только теги, стили задаёт .rich #}
     <div class="rich">
 {% include 'info/' ~ slug ~ '.html' %}

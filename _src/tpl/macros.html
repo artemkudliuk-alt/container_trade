@@ -123,6 +123,6 @@
 {% macro trow(cells, link=none) %}
         <div class="table__row">
           <div class="table__cells">{% for c in cells %}<span class="table__cell">{{ c }}</span>{% endfor %}</div>
-          {% if link %}<a class="link-arrow" href="#">{{ link }}{{ ico('arrow') }}</a>{% endif %}
+          {% if link %}<a class="link-arrow" href="catalog.html">{{ link }}{{ ico('arrow') }}</a>{% endif %}
         </div>
 {%- endmacro %}

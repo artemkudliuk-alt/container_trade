@@ -146,7 +146,9 @@
   }
   &__share-list { display: flex; gap: 12px; }
   &__share-list img { width: 32px; height: 32px; transition: opacity .2s; }
-  &__share-list a:hover img { opacity: .8; }
+  &__share-list a:hover img, &__share-list button:hover img { opacity: .8; }
+  &__share-list button { display: block; }
+  &__share-note { @include t(14px, 18px, 500); color: $green; &:empty { display: none; } }
 
   @include xl { padding: 40px 160px; }
   @include md { padding: 40px; }
@@ -215,6 +217,23 @@
     th { @include t(11px, 14px, 500); }
     &--article img { width: 100%; aspect-ratio: 358 / 238; }
   }
+}
+
+// Цифры компании — плитки над текстом страницы (в шаблоне, не в редакторе)
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item { display: flex; flex-direction: column; gap: 4px; padding: 20px; border-radius: 16px; background: $field; }
+  &__num { @include t(36px, 44px, 800); color: $blue; letter-spacing: -.5px; }
+  &__label { @include t(14px, 18px, 500); color: $muted; }
+
+  @include md { grid-template-columns: repeat(2, 1fr); }
+  @include mob { &__item { padding: 16px; } &__num { @include t(28px, 32px, 800); } }
 }
 
 // ---------- Карта сайта ----------

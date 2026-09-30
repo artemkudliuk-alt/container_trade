@@ -85,6 +85,7 @@
 .finder {
   border-radius: 0 0 28px 28px;
   background: $panel;
+  scroll-margin-top: 92px;   // переход по ссылке #map — не под закреплённую шапку
 
   @include mob { border-radius: 0 0 20px 20px; }
 }
